@@ -58,6 +58,37 @@ Covers:
 - Pre-commit hooks and patchcheck
 - Documentation formatting
 
+## Recommended Tools
+
+While the skills are designed to work with or without these tools, having them installed significantly improves the development experience:
+
+### ripgrep (`rg`)
+**Why**: Significantly faster than `grep` or `find` for searching large codebases
+- CPython has extensive C and Python source files
+- ripgrep is optimized for source code searching with smart defaults
+- Install: Most package managers have `ripgrep` (command is `rg`)
+
+### GitHub CLI (`gh`)
+**Why**: Streamlined access to PR and issue information
+- Query PR details, comments, and status directly from command line
+- Use GraphQL API for complex queries
+- Install: https://cli.github.com/
+
+### jq
+**Why**: Process JSON responses from APIs and tools
+- Parse and filter GitHub API responses
+- Process structured tool output
+- Install: Available in most package managers
+
+### pre-commit
+**Why**: Automated code quality checks before commits
+- Catches trailing whitespace, file endings, and syntax errors
+- Runs configured linters and formatters
+- Prevents common mistakes from being committed
+- Install: `pip install pre-commit` or via package manager
+
+**Note**: The skills gracefully handle missing tools, but will recommend installation when relevant tasks arise.
+
 ## Installation
 
 ### For Claude Code
