@@ -160,7 +160,7 @@ To extend these skills:
 
 ## License
 
-MIT
+CC0 1.0 Universal
 
 ## References
 
