@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation",
   "author": "CPython Core Team",
-  "license": "Apache 2.0",
+  "license": "CC0-1.0",
   "skills": true
 }
