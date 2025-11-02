@@ -73,7 +73,7 @@ While the skills are designed to work with or without these tools, having them i
 - Query PR details, comments, and status directly from command line
 - Use GraphQL API for complex queries
 - Install: https://cli.github.com/
-- You must manually pre-authorize this in line with your comfort level. For example, you could use a fine grained GitHub access token if you want to limit it to read-only access or only some of your repos if you are afraid of giving less trustworthy agents write access to interact with the world.
+- You must manually pre-authorize this in line with your comfort level. For example, you could use a [fine grained GitHub access token](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/) if you want to limit it to read-only access or only some of your repos if you are afraid of giving less trustworthy agents write access to interact with the world.
 
 ### jq
 **Why**: Process JSON responses from APIs and tools
