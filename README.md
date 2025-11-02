@@ -4,7 +4,7 @@ A Claude Code plugin providing specialized skills for working with the CPython r
 
 ## Overview
 
-This plugin provides AI agents (Claude and others) with deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards. The skills are designed to be usable by any AI agent that supports the Claude Skills format, not just Claude Code.
+This plugin provides AI agents (Claude and others) with deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards. While expressed in Claude Skills format, they are designed to be usable by any AI agent, not just Claude.
 
 ## Skills Included
 
@@ -12,9 +12,9 @@ This plugin provides AI agents (Claude and others) with deep knowledge about CPy
 **When to use**: Working in the CPython repository, managing engineering notebooks
 
 Provides essential context including:
-- Required tools (gh, ripgrep, jq, pre-commit)
+- Recommended tools (gh, ripgrep, jq, pre-commit)
 - File size considerations
-- Engineering notebook management for PRs and branches
+- Engineering notebook management for PRs and branches as a task specific long term memory.
 - Developer guide and PEP references
 
 ### 2. cpython-navigation
@@ -60,7 +60,7 @@ Covers:
 
 ## Recommended Tools
 
-While the skills are designed to work with or without these tools, having them installed significantly improves the development experience:
+While the skills are designed to work with or without these tools, having them installed can significantly improves the agentic development experience:
 
 ### ripgrep (`rg`)
 **Why**: Significantly faster than `grep` or `find` for searching large codebases
@@ -73,10 +73,11 @@ While the skills are designed to work with or without these tools, having them i
 - Query PR details, comments, and status directly from command line
 - Use GraphQL API for complex queries
 - Install: https://cli.github.com/
+- You must manually pre-authorize this in line with your comfort level. For example, you could use a fine grained GitHub access token if you want to limit it to read-only access or only some of your repos if you are afraid of giving less trustworthy agents write access to interact with the world.
 
 ### jq
 **Why**: Process JSON responses from APIs and tools
-- Parse and filter GitHub API responses
+- Parse and filter GitHub and other tool and API responses
 - Process structured tool output
 - Install: Available in most package managers
 

@@ -1,8 +1,8 @@
 {
   "name": "cpython-skills",
   "version": "0.1.0",
-  "description": "Claude Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation",
-  "author": "Greg",
-  "license": "MIT",
+  "description": "Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation",
+  "author": "CPython Core Team",
+  "license": "Apache 2.0",
   "skills": true
 }
