@@ -21,7 +21,7 @@ Add this marketplace to Claude Code to access all available plugins:
 Once the marketplace is added, you can install specific plugins:
 
 ```bash
-/plugin install cpython-skills@cpython-skills-marketplace
+/plugin install cpython-skills@cpython-skills
 ```
 
 ## Available Plugins
@@ -186,15 +186,6 @@ This marketplace was created from the original CPython skills plugin, which was 
 - **Reusability**: Skills can be used independently or together
 - **Extensibility**: Easy to add new plugins to the marketplace
 - **Interoperability**: Works with any agent supporting Claude Skills format
-
-## Contributing
-
-Contributions are welcome! To add or improve plugins:
-
-1. Fork this repository
-2. Add your plugin to the `plugins/` directory
-3. Update the marketplace.json file
-4. Submit a pull request
 
 ## License
 
