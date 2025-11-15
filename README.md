@@ -8,21 +8,22 @@ This marketplace hosts Claude Code plugins with AI-agent skills for CPython deve
 
 ## Installation
 
-### Installing the Marketplace
+To use these skills in Claude Code within a CPython repository checkout:
 
-Add this marketplace to Claude Code to access all available plugins:
+1. Add the marketplace:
+   ```
+   /plugin marketplace add gpshead/cpython-skills
+   ```
 
-```bash
-/plugin add https://github.com/gpshead/cpython-skills
-```
+2. Install the plugin:
+   ```
+   /plugin install cpython-skills
+   ```
 
-### Installing Individual Plugins
-
-Once the marketplace is added, you can install specific plugins:
-
-```bash
-/plugin install cpython-skills@cpython-skills
-```
+3. In your CPython repository, ask Claude:
+   ```
+   write a CLAUDE.local.md that instructs you to load and use all of the cpython-skills plugin in this repo.
+   ```
 
 ## Available Plugins
 
