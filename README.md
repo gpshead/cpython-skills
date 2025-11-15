@@ -1,23 +1,48 @@
-# CPython Skills Plugin
+# CPython Skills Marketplace
 
-A Claude Code plugin providing specialized skills for working with the CPython repository - the reference implementation of the Python programming language.
+A Claude Code marketplace providing specialized skills for working with the CPython repository - the reference implementation of the Python programming language.
 
 ## Overview
 
-This plugin provides AI agents (Claude and others) with deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards. While expressed in Claude Skills format, they are designed to be usable by any AI agent, not just Claude.
+This marketplace hosts Claude Code plugins with AI-agent skills for CPython development. Currently includes one comprehensive plugin with multiple skills providing deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards.
 
-## Skills Included
+## Installation
 
-### 1. cpython-context
+### Installing the Marketplace
+
+Add this marketplace to Claude Code to access all available plugins:
+
+```bash
+/plugin add https://github.com/gpshead/cpython-skills
+```
+
+### Installing Individual Plugins
+
+Once the marketplace is added, you can install specific plugins:
+
+```bash
+/plugin install cpython-skills@cpython-skills-marketplace
+```
+
+## Available Plugins
+
+### CPython Skills
+
+**Name**: `cpython-skills`
+**Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
+
+This plugin provides five specialized skills:
+
+#### 1. cpython-context
 **When to use**: Working in the CPython repository, managing engineering notebooks
 
 Provides essential context including:
 - Recommended tools (gh, ripgrep, jq, pre-commit)
 - File size considerations
-- Engineering notebook management for PRs and branches as a task specific long term memory.
+- Engineering notebook management for PRs and branches as a task specific long term memory
 - Developer guide and PEP references
 
-### 2. cpython-navigation
+#### 2. cpython-navigation
 **When to use**: Finding code, understanding codebase structure, locating tests
 
 Covers:
@@ -27,7 +52,7 @@ Covers:
 - Scratch space usage
 - Documentation structure
 
-### 3. cpython-build
+#### 3. cpython-build
 **When to use**: Configuring, building, or rebuilding CPython
 
 Includes:
@@ -37,7 +62,7 @@ Includes:
 - Argument Clinic code generation
 - Build verification and troubleshooting
 
-### 4. cpython-testing
+#### 4. cpython-testing
 **When to use**: Running tests, collecting coverage, debugging test failures
 
 Details:
@@ -48,7 +73,7 @@ Details:
 - Test package handling
 - Interactive debugging with tmux
 
-### 5. cpython-code-style
+#### 5. cpython-code-style
 **When to use**: Writing code, ensuring style compliance, preparing commits
 
 Covers:
@@ -60,7 +85,7 @@ Covers:
 
 ## Recommended Tools
 
-While the skills are designed to work with or without these tools, having them installed can significantly improves the agentic development experience:
+While the skills are designed to work with or without these tools, having them installed can significantly improve the agentic development experience:
 
 ### ripgrep (`rg`)
 **Why**: Significantly faster than `grep` or `find` for searching large codebases
@@ -90,54 +115,57 @@ While the skills are designed to work with or without these tools, having them i
 
 **Note**: The skills gracefully handle missing tools, but will recommend installation when relevant tasks arise.
 
-## Installation
-
-### For Claude Code
-
-1. Clone or copy this directory to your Claude Code plugins location
-2. The plugin will be automatically discovered if placed in the right location
-3. Claude will automatically invoke these skills when relevant
-
-### For Other AI Agents
-
-This plugin follows the [Claude Skills specification](https://simonwillison.net/2025/Oct/16/claude-skills/), making it usable by any AI agent that supports this format.
-
-Each skill is a self-contained directory under `skills/` with a `SKILL.md` file containing:
-- YAML frontmatter with `name` and `description`
-- Markdown content with detailed instructions
-
-Agents can:
-1. Read the skill descriptions to determine when to use them
-2. Load the skill content when relevant to the task
-3. Follow the instructions within each skill
-
-## Structure
+## Marketplace Structure
 
 ```
 cpython-skills/
-├── plugin.json          # Plugin manifest
-├── README.md           # This file
-└── skills/             # Skills directory
-    ├── cpython-context/
-    │   └── SKILL.md
-    ├── cpython-navigation/
-    │   └── SKILL.md
-    ├── cpython-build/
-    │   └── SKILL.md
-    ├── cpython-testing/
-    │   └── SKILL.md
-    └── cpython-code-style/
-        └── SKILL.md
+├── .claude-plugin/
+│   └── marketplace.json    # Marketplace manifest
+├── plugins/
+│   └── cpython-skills/     # CPython skills plugin
+│       ├── plugin.json     # Plugin manifest
+│       └── skills/         # Individual skills
+│           ├── cpython-context/
+│           │   └── SKILL.md
+│           ├── cpython-navigation/
+│           │   └── SKILL.md
+│           ├── cpython-build/
+│           │   └── SKILL.md
+│           ├── cpython-testing/
+│           │   └── SKILL.md
+│           └── cpython-code-style/
+│               └── SKILL.md
+├── LICENSE
+└── README.md               # This file
 ```
 
-## Origin
+## For Plugin Developers
 
-This plugin was converted from the original `cpython/CLAUDE.local.md` file, which provided similar context as a monolithic Markdown document. The skills-based approach provides:
+### Adding New Plugins to This Marketplace
 
-- **Modularity**: Each skill focuses on a specific domain
-- **Discoverability**: AI agents can find relevant skills based on task descriptions
-- **Reusability**: Skills can be used independently or together
-- **Interoperability**: Works with any agent supporting Claude Skills format
+To add a new plugin to this marketplace:
+
+1. Create a new directory under `plugins/` with your plugin name
+2. Add your plugin files (skills, commands, agents, etc.)
+3. Create a `plugin.json` manifest in your plugin directory
+4. Update `.claude-plugin/marketplace.json` to include your plugin entry
+
+Example marketplace.json plugin entry:
+```json
+{
+  "name": "your-plugin-name",
+  "source": "./plugins/your-plugin-name",
+  "description": "Brief description of what your plugin does"
+}
+```
+
+### Skills Format
+
+This marketplace follows the [Claude Skills specification](https://simonwillison.net/2025/Oct/16/claude-skills/), making plugins usable by any AI agent that supports this format.
+
+Each skill is a self-contained directory with a `SKILL.md` file containing:
+- YAML frontmatter with `name` and `description`
+- Markdown content with detailed instructions
 
 ## Usage Examples
 
@@ -149,14 +177,24 @@ When working with CPython, the AI agent will automatically:
 4. Follow `cpython-testing` guidance when running tests
 5. Enforce `cpython-code-style` rules when writing code
 
+## Origin
+
+This marketplace was created from the original CPython skills plugin, which was converted from the `cpython/CLAUDE.local.md` file. The marketplace-based approach provides:
+
+- **Modularity**: Each skill focuses on a specific domain
+- **Discoverability**: AI agents can find relevant skills based on task descriptions
+- **Reusability**: Skills can be used independently or together
+- **Extensibility**: Easy to add new plugins to the marketplace
+- **Interoperability**: Works with any agent supporting Claude Skills format
+
 ## Contributing
 
-To extend these skills:
+Contributions are welcome! To add or improve plugins:
 
-1. Add new skills in the `skills/` directory
-2. Follow the SKILL.md format with YAML frontmatter
-3. Write clear descriptions so agents know when to use the skill
-4. Include examples and common workflows
+1. Fork this repository
+2. Add your plugin to the `plugins/` directory
+3. Update the marketplace.json file
+4. Submit a pull request
 
 ## License
 
@@ -164,6 +202,7 @@ CC0 1.0 Universal
 
 ## References
 
+- [Claude Code Plugin Marketplaces Documentation](https://docs.claude.com/en/docs/claude-code/plugin-marketplaces)
 - [Claude Code Plugins Documentation](https://docs.claude.com/en/docs/claude-code/plugins)
 - [Claude Code Skills Documentation](https://docs.claude.com/en/docs/claude-code/skills)
 - [Simon Willison on Claude Skills](https://simonwillison.net/2025/Oct/16/claude-skills/)
