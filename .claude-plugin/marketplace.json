@@ -1,0 +1,17 @@
+{
+  "name": "cpython-skills",
+  "metadata": {
+    "description": "A marketplace for CPython development skills and tools",
+    "version": "0.1.0"
+  },
+  "owner": {
+    "name": "CPython Core Team"
+  },
+  "plugins": [
+    {
+      "name": "cpython-skills",
+      "source": "./plugins/cpython-skills",
+      "description": "Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation"
+    }
+  ]
+}
