@@ -55,7 +55,7 @@ $BUILT_PY -c "print('Hello from CPython!')"
 
 **Critical rules:**
 1. **NEVER use `pytest`** - CPython tests are `unittest` based
-2. **Use `--match` not `-k`** for filtering (this is not pytest!)
+2. **Use `--match` not `-k`** for filtering - takes a glob pattern (this is not pytest!)
 
 Prerequisite: `BUILT_PY=build/python` or `build/python.exe`
 
@@ -71,7 +71,7 @@ $BUILT_PY -m test test_csv test_json -j $(nproc)
 # Direct execution (quick but may miss test packages)
 $BUILT_PY Lib/test/test_csv.py
 
-# Specific test pattern (use --match, NOT -k!)
+# Specific test by glob pattern (use --match, NOT -k!)
 $BUILT_PY -m test test_zipfile --match "*large*" -j $(nproc)
 $BUILT_PY -m test test_csv --match "TestDialect*"
 $BUILT_PY -m test test_json --match "TestEncode.test_encode_string"
