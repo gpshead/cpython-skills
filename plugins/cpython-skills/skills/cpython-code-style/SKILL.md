@@ -1,6 +1,6 @@
 ---
 name: cpython-code-style
-description: Use this skill when writing or modifying CPython code to ensure it follows proper coding standards (PEP 7 for C, PEP 8 for Python), formatting rules, linting requirements, and pre-commit checks. It covers whitespace handling, type annotations policy, and documentation formatting.
+description: Use this skill when writing or modifying CPython code, preparing commits, or running style checks. Covers PEP 7 (C code) and PEP 8 (Python) compliance, pre-commit hooks, patchcheck validation, trailing whitespace rules, the no-type-annotations-in-Lib policy, and documentation formatting standards.
 ---
 
 # CPython Coding Style and Standards

@@ -34,9 +34,7 @@ Prefer these tools when available: `rg`, `gh`, `jq`
 
 ## Argument Clinic
 
-Generates C boilerplate for argument parsing from specially formatted comments in `.c` files. Output goes to `**/clinic/**` subdirectories.
-
-**NEVER edit files in `**/clinic/**` subdirectories** - they're auto-generated! Edit the source `.c` file, then run `make -C BUILD_DIR clinic`.
+**`**/clinic/**` subdirectories are auto-generated** - never edit these directly. See `cpython-build-and-test` skill for regeneration commands.
 
 ## Engineering Notebooks
 
