@@ -32,29 +32,22 @@ To use these skills in Claude Code within a CPython repository checkout:
 **Name**: `cpython-skills`
 **Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
 
-This plugin provides five specialized skills:
+This plugin provides three specialized skills:
 
-#### 1. cpython-context
-**When to use**: Working in the CPython repository, managing engineering notebooks
+#### 1. cpython-codebase
+**When to use**: Working in the CPython repository, understanding codebase structure, managing engineering notebooks
 
-Provides essential context including:
-- Recommended tools (gh, ripgrep, jq, pre-commit)
-- File size considerations
-- Engineering notebook management for PRs and branches as a task specific long term memory
-- Developer guide and PEP references
-
-#### 2. cpython-navigation
-**When to use**: Finding code, understanding codebase structure, locating tests
-
-Covers:
+Provides:
+- Recommended tools (`rg`, `gh`, `jq`)
 - Source code organization (Lib/, Modules/, Objects/, Python/, Include/)
 - Test location and naming conventions
 - Argument Clinic overview
+- Engineering notebook management for PRs and branches as task-specific long term memory
 - Scratch space usage
-- Documentation structure
+- Developer guide and PEP references
 
-#### 3. cpython-build
-**When to use**: Configuring, building, or rebuilding CPython
+#### 2. cpython-build-and-test
+**When to use**: Configuring, building, rebuilding CPython, running tests, collecting coverage, debugging test failures
 
 Includes:
 - Build directory setup
@@ -62,11 +55,6 @@ Includes:
 - Incremental builds
 - Argument Clinic code generation
 - Build verification and troubleshooting
-
-#### 4. cpython-testing
-**When to use**: Running tests, collecting coverage, debugging test failures
-
-Details:
 - unittest-based testing (not pytest!)
 - Running individual tests and test suites
 - Using `--match` for test filtering
@@ -74,7 +62,7 @@ Details:
 - Test package handling
 - Interactive debugging with tmux
 
-#### 5. cpython-code-style
+#### 3. cpython-code-style
 **When to use**: Writing code, ensuring style compliance, preparing commits
 
 Covers:
@@ -86,35 +74,7 @@ Covers:
 
 ## Recommended Tools
 
-While the skills are designed to work with or without these tools, having them installed can significantly improve the agentic development experience:
-
-### ripgrep (`rg`)
-**Why**: Significantly faster than `grep` or `find` for searching large codebases
-- CPython has extensive C and Python source files
-- ripgrep is optimized for source code searching with smart defaults
-- Install: Most package managers have `ripgrep` (command is `rg`)
-
-### GitHub CLI (`gh`)
-**Why**: Streamlined access to PR and issue information
-- Query PR details, comments, and status directly from command line
-- Use GraphQL API for complex queries
-- Install: https://cli.github.com/
-- You must manually pre-authorize this in line with your comfort level. For example, you could use a [fine grained GitHub access token](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/) if you want to limit it to read-only access or only some of your repos if you are afraid of giving less trustworthy agents write access to interact with the world.
-
-### jq
-**Why**: Process JSON responses from APIs and tools
-- Parse and filter GitHub and other tool and API responses
-- Process structured tool output
-- Install: Available in most package managers
-
-### pre-commit
-**Why**: Automated code quality checks before commits
-- Catches trailing whitespace, file endings, and syntax errors
-- Runs configured linters and formatters
-- Prevents common mistakes from being committed
-- Install: `pip install pre-commit` or via package manager
-
-**Note**: The skills gracefully handle missing tools, but will recommend installation when relevant tasks arise.
+These tools improve the agentic development experience: `rg`, `gh`, `jq`
 
 ## Marketplace Structure
 
@@ -126,13 +86,9 @@ cpython-skills/
 │   └── cpython-skills/     # CPython skills plugin
 │       ├── plugin.json     # Plugin manifest
 │       └── skills/         # Individual skills
-│           ├── cpython-context/
+│           ├── cpython-codebase/
 │           │   └── SKILL.md
-│           ├── cpython-navigation/
-│           │   └── SKILL.md
-│           ├── cpython-build/
-│           │   └── SKILL.md
-│           ├── cpython-testing/
+│           ├── cpython-build-and-test/
 │           │   └── SKILL.md
 │           └── cpython-code-style/
 │               └── SKILL.md
@@ -172,11 +128,9 @@ Each skill is a self-contained directory with a `SKILL.md` file containing:
 
 When working with CPython, the AI agent will automatically:
 
-1. Load `cpython-context` when starting work in the repo
-2. Use `cpython-navigation` to find relevant source files
-3. Apply `cpython-build` knowledge when compiling
-4. Follow `cpython-testing` guidance when running tests
-5. Enforce `cpython-code-style` rules when writing code
+1. Load `cpython-codebase` when starting work in the repo
+2. Apply `cpython-build-and-test` knowledge when compiling or running tests
+3. Enforce `cpython-code-style` rules when writing code
 
 ## Origin
 
