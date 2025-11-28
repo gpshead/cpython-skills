@@ -46,6 +46,15 @@ Covers:
 - Pre-commit hooks and patchcheck
 - Documentation formatting
 
+### 4. cpython-docs
+**When to use**: Working with CPython documentation, adding version markers, creating NEWS entries
+
+Covers:
+- Documentation in ReST format in Doc/ tree
+- Documentation tooling setup and validation
+- Version markers (always use `next`)
+- NEWS file entries for bug fixes and features
+
 ## Skills Format
 
 This plugin follows the [Claude Skills specification](https://simonwillison.net/2025/Oct/16/claude-skills/), making it usable by any AI agent that supports this format.
@@ -94,7 +103,9 @@ skills/
 │   └── SKILL.md
 ├── cpython-build-and-test/
 │   └── SKILL.md
-└── cpython-code-style/
+├── cpython-code-style/
+│   └── SKILL.md
+└── cpython-docs/
     └── SKILL.md
 ```
 
@@ -105,6 +116,7 @@ When working with CPython, AI agents will automatically:
 1. Load `cpython-codebase` when starting work in the repo
 2. Apply `cpython-build-and-test` knowledge when compiling or running tests
 3. Enforce `cpython-code-style` rules when writing code
+4. Follow `cpython-docs` guidance when updating documentation
 
 ## Origin
 

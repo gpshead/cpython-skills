@@ -32,7 +32,7 @@ To use these skills in Claude Code within a CPython repository checkout:
 **Name**: `cpython-skills`
 **Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
 
-This plugin provides three specialized skills:
+This plugin provides four specialized skills:
 
 #### 1. cpython-codebase
 **When to use**: Working in the CPython repository, understanding codebase structure, managing engineering notebooks
@@ -72,6 +72,15 @@ Covers:
 - Pre-commit hooks and patchcheck
 - Documentation formatting
 
+#### 4. cpython-docs
+**When to use**: Working with CPython documentation, adding version markers, creating NEWS entries
+
+Covers:
+- Documentation in ReST format in Doc/ tree
+- Documentation tooling setup and validation
+- Version markers (always use `next`)
+- NEWS file entries for bug fixes and features
+
 ## Recommended Tools
 
 These tools improve the agentic development experience: `rg`, `gh`, `jq`
@@ -90,7 +99,9 @@ cpython-skills/
 │           │   └── SKILL.md
 │           ├── cpython-build-and-test/
 │           │   └── SKILL.md
-│           └── cpython-code-style/
+│           ├── cpython-code-style/
+│           │   └── SKILL.md
+│           └── cpython-docs/
 │               └── SKILL.md
 ├── LICENSE
 └── README.md               # This file
@@ -131,6 +142,7 @@ When working with CPython, the AI agent will automatically:
 1. Load `cpython-codebase` when starting work in the repo
 2. Apply `cpython-build-and-test` knowledge when compiling or running tests
 3. Enforce `cpython-code-style` rules when writing code
+4. Follow `cpython-docs` guidance when updating documentation
 
 ## Origin
 

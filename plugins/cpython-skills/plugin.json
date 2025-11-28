@@ -1,6 +1,6 @@
 {
   "name": "cpython-skills",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation",
   "author": "CPython Core Team",
   "license": "CC0-1.0",
