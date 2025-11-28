@@ -15,8 +15,15 @@ When modifying skills in this repository:
 1. **Each skill is a directory** under `plugins/cpython-skills/skills/` containing a `SKILL.md` file
 2. **SKILL.md format**: YAML frontmatter (`name`, `description`) followed by markdown instructions
 3. **Keep skills focused**: Each skill should cover a specific domain (build, test, style, docs)
-4. **Test descriptions**: The `description` in frontmatter is used for skill discovery - make it clear and actionable
-5. **Update README.md** if adding new skills or changing skill purposes
+4. **Descriptions are critical**: The `description` is the primary triggering mechanism - include specific contexts and triggers
+5. **No extraneous files**: Don't add README.md or other auxiliary files in skill directories
+6. **Avoid duplication**: Information should live in one skill only, not repeated across skills
+7. **Keep SKILL.md concise**: Under 500 lines; split to reference files if needed
+8. **Update top-level README.md** if adding new skills or changing skill purposes
+
+### Best Practices Reference
+
+Load the [skill-creator](https://github.com/anthropics/skills/blob/main/skill-creator/SKILL.md) skill for comprehensive guidance on skill design patterns, progressive disclosure, and bundled resources.
 
 ## Official Anthropic Documentation
 

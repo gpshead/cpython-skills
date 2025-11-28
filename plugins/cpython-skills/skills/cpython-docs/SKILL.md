@@ -1,6 +1,6 @@
 ---
 name: cpython-docs
-description: Use this skill when working with CPython documentation, adding version markers, or creating NEWS entries for bug fixes and features.
+description: Use this skill when working with CPython documentation in the Doc/ tree, including reStructuredText (.rst) files, adding versionadded/versionchanged markers, creating Misc/NEWS.d entries for bug fixes or features, running documentation validation (make -C Doc check), or building HTML docs.
 ---
 
 # CPython Documentation
