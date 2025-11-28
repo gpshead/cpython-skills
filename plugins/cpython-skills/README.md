@@ -8,27 +8,20 @@ These skills provide AI agents (Claude and others) with deep knowledge about CPy
 
 ## Skills Included
 
-### 1. cpython-context
-**When to use**: Working in the CPython repository, managing engineering notebooks
+### 1. cpython-codebase
+**When to use**: Working in the CPython repository, understanding codebase structure, managing engineering notebooks
 
-Provides essential context including:
-- Recommended tools (gh, ripgrep, jq, pre-commit)
-- File size considerations
-- Engineering notebook management for PRs and branches as a task specific long term memory
-- Developer guide and PEP references
-
-### 2. cpython-navigation
-**When to use**: Finding code, understanding codebase structure, locating tests
-
-Covers:
+Provides:
+- Recommended tools (`rg`, `gh`, `jq`)
 - Source code organization (Lib/, Modules/, Objects/, Python/, Include/)
 - Test location and naming conventions
 - Argument Clinic overview
+- Engineering notebook management for PRs and branches as task-specific long term memory
 - Scratch space usage
-- Documentation structure
+- Developer guide and PEP references
 
-### 3. cpython-build
-**When to use**: Configuring, building, or rebuilding CPython
+### 2. cpython-build-and-test
+**When to use**: Configuring, building, rebuilding CPython, running tests, collecting coverage, debugging test failures
 
 Includes:
 - Build directory setup
@@ -36,11 +29,6 @@ Includes:
 - Incremental builds
 - Argument Clinic code generation
 - Build verification and troubleshooting
-
-### 4. cpython-testing
-**When to use**: Running tests, collecting coverage, debugging test failures
-
-Details:
 - unittest-based testing (not pytest!)
 - Running individual tests and test suites
 - Using `--match` for test filtering
@@ -48,7 +36,7 @@ Details:
 - Test package handling
 - Interactive debugging with tmux
 
-### 5. cpython-code-style
+### 3. cpython-code-style
 **When to use**: Writing code, ensuring style compliance, preparing commits
 
 Covers:
@@ -57,6 +45,15 @@ Covers:
 - Type annotation policy (no annotations in Lib/!)
 - Pre-commit hooks and patchcheck
 - Documentation formatting
+
+### 4. cpython-docs
+**When to use**: Working with CPython documentation, adding version markers, creating NEWS entries
+
+Covers:
+- Documentation in ReST format in Doc/ tree
+- Documentation tooling setup and validation
+- Version markers (always use `next`)
+- NEWS file entries for bug fixes and features
 
 ## Skills Format
 
@@ -102,15 +99,13 @@ To add a new skill to this plugin:
 ```
 skills/
 ├── README.md                 # This file
-├── cpython-context/
+├── cpython-codebase/
 │   └── SKILL.md
-├── cpython-navigation/
+├── cpython-build-and-test/
 │   └── SKILL.md
-├── cpython-build/
+├── cpython-code-style/
 │   └── SKILL.md
-├── cpython-testing/
-│   └── SKILL.md
-└── cpython-code-style/
+└── cpython-docs/
     └── SKILL.md
 ```
 
@@ -118,11 +113,10 @@ skills/
 
 When working with CPython, AI agents will automatically:
 
-1. Load `cpython-context` when starting work in the repo
-2. Use `cpython-navigation` to find relevant source files
-3. Apply `cpython-build` knowledge when compiling
-4. Follow `cpython-testing` guidance when running tests
-5. Enforce `cpython-code-style` rules when writing code
+1. Load `cpython-codebase` when starting work in the repo
+2. Apply `cpython-build-and-test` knowledge when compiling or running tests
+3. Enforce `cpython-code-style` rules when writing code
+4. Follow `cpython-docs` guidance when updating documentation
 
 ## Origin
 

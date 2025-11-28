@@ -1,9 +1,15 @@
 ---
-name: cpython-navigation
-description: Use this skill when you need to understand the CPython source code structure, find where specific functionality is implemented (C runtime, stdlib, tests, docs), or understand the relationship between different parts of the codebase like modules and their tests.
+name: cpython-codebase
+description: Use this skill when working in the CPython repository. It provides essential context about the CPython codebase structure, recommended tools, source code navigation, and best practices for maintaining engineering notebooks while working on Python runtime and standard library development.
 ---
 
-# CPython Source Code Navigation
+# CPython Codebase
+
+You are working in the CPython repository - the implementation of the Python language runtime and standard library itself.
+
+## Recommended Tools
+
+Prefer these tools when available: `rg`, `gh`, `jq`
 
 ## Source Code Structure
 
@@ -32,6 +38,19 @@ Generates C boilerplate for argument parsing from specially formatted comments i
 
 **NEVER edit files in `**/clinic/**` subdirectories** - they're auto-generated! Edit the source `.c` file, then run `make -C BUILD_DIR clinic`.
 
+## Engineering Notebooks
+
+ALWAYS load and maintain notebooks when working on features or PRs:
+- **For PRs**: `.claude/pr-{PR_NUMBER}.md`
+- **For branches**: `.claude/branch-{branch_name_without_slashes}.md` (when not on `main`)
+
+Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status.
+
 ## Scratch Space
 
 **NEVER create throwaway files in repo root.** Use `.claude/sandbox/` for exploration files, test scripts, and prototypes.
+
+## Optional Developer Resources
+
+- **Developer Guide**: If `REPO_ROOT/../devguide/` exists, see `developer-workflow/` and `documentation/` subdirectories
+- **PEPs**: May exist in `REPO_ROOT/../peps/` tree - reference relevant PEPs when working on changes

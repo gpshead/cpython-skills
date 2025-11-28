@@ -2,7 +2,7 @@
   "name": "cpython-skills",
   "metadata": {
     "description": "A marketplace for CPython development skills and tools",
-    "version": "0.1.0"
+    "version": "0.3.0"
   },
   "owner": {
     "name": "CPython Core Team"
