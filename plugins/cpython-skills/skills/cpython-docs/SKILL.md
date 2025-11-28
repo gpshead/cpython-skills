@@ -37,4 +37,4 @@ Bug fixes and new features require a `Misc/NEWS.d/next/` file entry.
 
 **IMPORTANT**: The filename MUST refer to the correct GitHub Issue number in the upstream `python/cpython` repository. **Do not pick a number on your own!** Ask the user what issue number to use.
 
-Example filename format: `Misc/NEWS.d/next/<category>/<issue-number>.rst`
+Example filename format: `Misc/NEWS.d/next/<category>/<YYYY-MM-DD-HH-MM-SS>.gh-issue-<NUMBER>.<UNIQUE_ID>.rst`
