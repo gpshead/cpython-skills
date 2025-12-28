@@ -25,10 +25,12 @@ ccache dramatically speeds up rebuilds by caching compilation results. Check if 
 which ccache
 ```
 
-**If ccache is not installed**: Ask the user if you have authority to install it:
-- Debian/Ubuntu: `sudo apt-get install ccache`
-- Fedora/RHEL: `sudo dnf install ccache`
-- macOS: `brew install ccache`
+**If ccache is not installed**:
+- macOS (Homebrew): Install directly with `brew install ccache` (no sudo required)
+- Containerized/root environments: Install directly with `apt-get install -y ccache` or `dnf install -y ccache`
+- Otherwise, ask the user for permission to install:
+  - Debian/Ubuntu: `sudo apt-get install ccache`
+  - Fedora/RHEL: `sudo dnf install ccache`
 
 **Configure with ccache** (if available):
 ```bash
