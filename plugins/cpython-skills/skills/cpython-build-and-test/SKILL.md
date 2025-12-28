@@ -1,6 +1,6 @@
 ---
 name: cpython-build-and-test
-description: Use this skill when configuring, building, or rebuilding CPython from source, running tests, or debugging test failures. Covers ./configure with --with-pydebug, make commands, Argument Clinic regeneration (make clinic), unittest-based testing with python -m test (NOT pytest), --match filtering, code coverage collection, and platform-specific build paths (Linux vs macOS).
+description: Use this skill when configuring, building, or rebuilding CPython from source, running tests, or debugging test failures. Covers ./configure with --with-pydebug, make commands, ccache for faster rebuilds, Argument Clinic regeneration (make clinic), unittest-based testing with python -m test (NOT pytest), --match filtering, code coverage collection, and platform-specific build paths (Linux vs macOS).
 ---
 
 # Building and Testing CPython
@@ -15,10 +15,34 @@ description: Use this skill when configuring, building, or rebuilding CPython fr
 # Build directory setup
 REPO_ROOT=<path-to-cpython-git-repo>
 BUILD_DIR=$REPO_ROOT/build
+```
 
-# Configure with debug support (enables debug symbols, assertions, runtime checks)
+#### ccache Setup (Recommended)
+
+ccache dramatically speeds up rebuilds by caching compilation results. Check if available:
+
+```bash
+which ccache
+```
+
+**If ccache is not installed**:
+- macOS (Homebrew): Install directly with `brew install ccache` (no sudo required)
+- Containerized/root environments: Install directly with `apt-get install -y ccache` or `dnf install -y ccache`
+- Otherwise, ask the user for permission to install:
+  - Debian/Ubuntu: `sudo apt-get install ccache`
+  - Fedora/RHEL: `sudo dnf install ccache`
+
+**Configure with ccache** (if available):
+```bash
+cd $BUILD_DIR && CC="ccache gcc" ../configure --with-pydebug
+```
+
+**Configure without ccache** (fallback):
+```bash
 cd $BUILD_DIR && ../configure --with-pydebug
+```
 
+```bash
 # Build using all CPU cores (initial or incremental)
 make -C $BUILD_DIR -j $(nproc)
 ```
@@ -49,7 +73,7 @@ $BUILT_PY -c "print('Hello from CPython!')"
 - **Missing dependencies**: Configure reports missing libraries
 - **Stale build**: `make clean` in BUILD_DIR and rebuild
 - **Clinic files out of sync**: `make -C $BUILD_DIR clinic`
-- **Clean build**: `rm -rf $BUILD_DIR && mkdir $BUILD_DIR && cd $BUILD_DIR && ../configure --with-pydebug && make -C $BUILD_DIR -j $(nproc)`
+- **Clean build**: `rm -rf $BUILD_DIR && mkdir $BUILD_DIR && cd $BUILD_DIR && CC="ccache gcc" ../configure --with-pydebug && make -j $(nproc)` (omit `CC=...` if ccache unavailable)
 
 ## Running CPython Tests
 
