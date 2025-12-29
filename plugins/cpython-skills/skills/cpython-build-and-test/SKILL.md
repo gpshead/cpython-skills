@@ -42,6 +42,16 @@ cd $BUILD_DIR && CC="ccache gcc" ../configure --with-pydebug
 cd $BUILD_DIR && ../configure --with-pydebug
 ```
 
+#### Performance/Benchmarking Builds
+
+When doing benchmarking or performance measurement of C code changes, **omit `--with-pydebug`** from configure:
+
+```bash
+cd $BUILD_DIR && CC="ccache gcc" ../configure  # No --with-pydebug
+```
+
+Debug builds have significant overhead that distorts performance measurements. However, **do not use `--enable-optimizations`** unless explicitly asked—it enables PGO (Profile-Guided Optimization) which is slow to compile. Non-PGO release builds are sufficient for the majority of performance comparison work.
+
 ```bash
 # Build using all CPU cores (initial or incremental)
 make -C $BUILD_DIR -j $(nproc)
