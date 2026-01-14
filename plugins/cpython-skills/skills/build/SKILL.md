@@ -113,7 +113,7 @@ $BUILT_PY -m test test_json --match "TestEncode.test_encode_string"
 # Full test suite (ASK FIRST - takes significant time!)
 make -C $BUILD_DIR test
 
-# Useful flags: -v (verbose), -f (fail fast), --list-tests (show all), --help
+# Useful flags: -v (verbose), -f (fail fast), --timeout 120 (detect hangs), --list-tests, --help
 ```
 
 **Test packages** (directories like `test_asyncio/`) require `load_tests()` in `__init__.py` to work with `python -m test`.
