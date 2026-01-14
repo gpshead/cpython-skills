@@ -1,11 +1,19 @@
 ---
-name: cpython-codebase
-description: Use this skill when working in the CPython repository. It provides essential context about the CPython codebase structure, recommended tools, source code navigation, and best practices for maintaining engineering notebooks while working on Python runtime and standard library development.
+name: dev
+description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs) as your workflow progresses.
 ---
 
-# CPython Codebase
+# CPython Development
 
 You are working in the CPython repository - the implementation of the Python language runtime and standard library itself.
+
+## Load Specialized Skills As Needed
+
+This skill provides orientation. **Load additional skills when your task requires them:**
+
+- **Load `build` skill when**: compiling CPython, running tests, verifying changes work, debugging test failures, or checking if your fix is correct
+- **Load `style` skill when**: preparing commits, running pre-commit hooks, checking code style, or validating changes before pushing
+- **Load `docs` skill when**: editing files in `Doc/`, adding version markers, creating NEWS entries, or updating documentation
 
 ## Recommended Tools
 
@@ -34,7 +42,7 @@ Prefer these tools when available: `rg`, `gh`, `jq`
 
 ## Argument Clinic
 
-**`**/clinic/**` subdirectories are auto-generated** - never edit these directly. See `cpython-build-and-test` skill for regeneration commands.
+**`**/clinic/**` subdirectories are auto-generated** - never edit these directly. Load the `build` skill for regeneration commands.
 
 ## Engineering Notebooks
 
@@ -52,3 +60,11 @@ Keep notebooks updated with learnings and project state as you work and after co
 
 - **Developer Guide**: If `REPO_ROOT/../devguide/` exists, see `developer-workflow/` and `documentation/` subdirectories
 - **PEPs**: May exist in `REPO_ROOT/../peps/` tree - reference relevant PEPs when working on changes
+
+## Typical Workflow
+
+1. **Understand the task** - explore code, read relevant files
+2. **Make changes** - edit source files
+3. **Build and test** - load `build` skill, compile, run tests
+4. **Validate style** - load `style` skill, run pre-commit and patchcheck
+5. **Update docs** - if needed, load `docs` skill for documentation changes

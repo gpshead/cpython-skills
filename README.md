@@ -32,48 +32,42 @@ To use these skills in Claude Code within a CPython repository checkout:
 **Name**: `cpython-skills`
 **Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
 
-This plugin provides four specialized skills:
+This plugin provides four specialized skills with a meta-skill that coordinates loading:
 
-#### 1. cpython-codebase
-**When to use**: Working in the CPython repository, understanding codebase structure, managing engineering notebooks
+#### 1. dev (Entry Point)
+**When to use**: Starting any CPython development task - fixing bugs, adding features, understanding code
 
 Provides:
+- Codebase orientation and source code structure
+- Workflow coordination - guides you to load other skills as needed
 - Recommended tools (`rg`, `gh`, `jq`)
-- Source code organization (Lib/, Modules/, Objects/, Python/, Include/)
-- Test location and naming conventions
-- Argument Clinic overview
-- Engineering notebook management for PRs and branches as task-specific long term memory
+- Engineering notebook management for PRs and branches
 - Scratch space usage
-- Developer guide and PEP references
 
-#### 2. cpython-build-and-test
-**When to use**: Configuring, building, rebuilding CPython, running tests, collecting coverage, debugging test failures
+#### 2. build
+**When to use**: Compiling CPython, running tests, verifying changes work, debugging test failures
 
 Includes:
-- Build directory setup
+- Build directory setup with ccache support
 - Platform-specific configuration (Linux, macOS, Windows)
-- Incremental builds
 - Argument Clinic code generation
 - Build verification and troubleshooting
 - unittest-based testing (not pytest!)
-- Running individual tests and test suites
-- Using `--match` for test filtering
+- Using `--match` for test filtering (not `-k`!)
 - Code coverage collection
-- Test package handling
 - Interactive debugging with tmux
 
-#### 3. cpython-code-style
-**When to use**: Writing code, ensuring style compliance, preparing commits
+#### 3. style
+**When to use**: Preparing commits, running pre-commit hooks, validating changes
 
 Covers:
 - PEP 7 (C code) and PEP 8 (Python code) compliance
 - Trailing whitespace and file ending rules
 - Type annotation policy (no annotations in Lib/!)
 - Pre-commit hooks and patchcheck
-- Documentation formatting
 
-#### 4. cpython-docs
-**When to use**: Working with CPython documentation, adding version markers, creating NEWS entries
+#### 4. docs
+**When to use**: Editing documentation in Doc/, adding version markers, creating NEWS entries
 
 Covers:
 - Documentation in ReST format in Doc/ tree
@@ -95,13 +89,13 @@ cpython-skills/
 │   └── cpython-skills/     # CPython skills plugin
 │       ├── plugin.json     # Plugin manifest
 │       └── skills/         # Individual skills
-│           ├── cpython-codebase/
+│           ├── dev/            # Entry point + codebase orientation
 │           │   └── SKILL.md
-│           ├── cpython-build-and-test/
+│           ├── build/          # Building and testing
 │           │   └── SKILL.md
-│           ├── cpython-code-style/
+│           ├── style/          # Code style and validation
 │           │   └── SKILL.md
-│           └── cpython-docs/
+│           └── docs/           # Documentation
 │               └── SKILL.md
 ├── LICENSE
 └── README.md               # This file
@@ -137,12 +131,14 @@ Each skill is a self-contained directory with a `SKILL.md` file containing:
 
 ## Usage Examples
 
-When working with CPython, the AI agent will automatically:
+When working with CPython, the AI agent will:
 
-1. Load `cpython-codebase` when starting work in the repo
-2. Apply `cpython-build-and-test` knowledge when compiling or running tests
-3. Enforce `cpython-code-style` rules when writing code
-4. Follow `cpython-docs` guidance when updating documentation
+1. Load `dev` when starting work in the repo - provides orientation and workflow guidance
+2. Load `build` when you need to compile or run tests - the `dev` skill prompts this
+3. Load `style` when preparing commits - the `dev` skill prompts this
+4. Load `docs` when updating documentation - the `dev` skill prompts this
+
+The `dev` skill acts as a coordinator, explicitly guiding the agent to load specialized skills as your workflow progresses.
 
 ## Origin
 

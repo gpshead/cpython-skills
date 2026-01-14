@@ -1,6 +1,6 @@
 ---
-name: cpython-build-and-test
-description: Use this skill when configuring, building, or rebuilding CPython from source, running tests, or debugging test failures. Covers ./configure with --with-pydebug, make commands, ccache for faster rebuilds, Argument Clinic regeneration (make clinic), unittest-based testing with python -m test (NOT pytest), --match filtering, code coverage collection, and platform-specific build paths (Linux vs macOS).
+name: build
+description: Use this skill when you need to compile CPython, run tests, verify your changes work, check if a fix is correct, or debug test failures. Covers building from source with ./configure and make, ccache for faster rebuilds, Argument Clinic regeneration, and the unittest-based test system (NOT pytest). Essential for any task that requires running code or tests.
 ---
 
 # Building and Testing CPython

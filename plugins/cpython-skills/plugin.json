@@ -7,9 +7,9 @@
   },
   "license": "CC0-1.0",
   "skills": [
-    "./skills/cpython-codebase",
-    "./skills/cpython-build-and-test",
-    "./skills/cpython-code-style",
-    "./skills/cpython-docs"
+    "./skills/dev",
+    "./skills/build",
+    "./skills/style",
+    "./skills/docs"
   ]
 }

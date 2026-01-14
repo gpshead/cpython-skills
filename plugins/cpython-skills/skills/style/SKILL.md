@@ -1,6 +1,6 @@
 ---
-name: cpython-code-style
-description: Use this skill when writing or modifying CPython code, preparing commits, or running style checks. Covers PEP 7 (C code) and PEP 8 (Python) compliance, pre-commit hooks, patchcheck validation, trailing whitespace rules, the no-type-annotations-in-Lib policy, and documentation formatting standards.
+name: style
+description: Use this skill when preparing commits, running pre-commit hooks, checking code style, or validating changes before pushing. Covers PEP 7 (C code) and PEP 8 (Python) compliance, trailing whitespace rules, the no-type-annotations-in-Lib policy, and patchcheck validation. Note: patchcheck requires a build directory - load the `build` skill first if you haven't built CPython yet.
 ---
 
 # CPython Coding Style and Standards
