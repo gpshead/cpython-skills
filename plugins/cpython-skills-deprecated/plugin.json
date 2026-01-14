@@ -1,0 +1,12 @@
+{
+  "name": "cpython-skills",
+  "version": "0.4.0",
+  "description": "DEPRECATED: This plugin has been renamed to 'cpython'. Please uninstall and install the new plugin.",
+  "author": {
+    "name": "CPython Core Team"
+  },
+  "license": "CC0-1.0",
+  "skills": [
+    "./skills/deprecated"
+  ]
+}

@@ -6,6 +6,17 @@ A Claude Code marketplace providing specialized skills for working with the CPyt
 
 This marketplace hosts Claude Code plugins with AI-agent skills for CPython development. Currently includes one comprehensive plugin with multiple skills providing deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards.
 
+## Upgrading from v0.3.x
+
+If you previously installed `cpython-skills`, it has been renamed to `cpython` for cleaner invocation:
+
+```
+/plugin uninstall cpython-skills
+/plugin install cpython
+```
+
+Skills are now invoked as `cpython:dev`, `cpython:build`, etc. instead of `cpython-skills:cpython-*`.
+
 ## Installation
 
 To use these skills in Claude Code within a CPython repository checkout:
@@ -17,19 +28,19 @@ To use these skills in Claude Code within a CPython repository checkout:
 
 2. Install the plugin:
    ```
-   /plugin install cpython-skills
+   /plugin install cpython
    ```
 
 3. In your CPython repository, ask Claude:
    ```
-   write a CLAUDE.local.md that instructs you to load and use all of the cpython-skills plugin in this repo.
+   write a CLAUDE.local.md that instructs you to load and use all of the cpython plugin skills in this repo.
    ```
 
 ## Available Plugins
 
 ### CPython Skills
 
-**Name**: `cpython-skills`
+**Name**: `cpython`
 **Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
 
 This plugin provides four specialized skills with a meta-skill that coordinates loading:
