@@ -73,8 +73,10 @@ Runtime toggle: set `PYTHON_JIT=0` or `PYTHON_JIT=1` to override the build defau
 |------|---------|
 | `Python/jit.c` | `_PyJIT_Compile()`, memory allocation, stencil patching, `_PyJIT_Free()` |
 | `Python/optimizer.c` | Uop optimizer, trace construction, executor management |
+| `Python/optimizer_analysis.c` | Uop analysis and optimization passes (type inference, constant folding) |
 | `Python/executor_cases.c.h` | **Generated** - uop switch cases (from `Python/bytecodes.c`) |
 | `Python/ceval.c` | `tier2_dispatch:` loop for the Tier 2 interpreter |
+| `Python/perf_jit_trampoline.c` | Linux `perf` integration for JIT code profiling |
 
 ### Headers
 
@@ -141,7 +143,7 @@ The stencil build uses a SHA-256 digest of all inputs. If the digest hasn't chan
 
 ## Testing
 
-There are no JIT-specific test files. The JIT is tested by running the standard test suite with JIT enabled:
+The optimizer and executor infrastructure is tested in `Lib/test/test_optimizer.py`. Otherwise, the JIT is tested by running the standard test suite with JIT enabled:
 
 ```bash
 # Standard test run (JIT is active if configured with --enable-experimental-jit)
@@ -185,6 +187,14 @@ Build with `--with-pydebug` for assertions in `Python/jit.c`. Key functions to s
 - `_PyJIT_Compile` - trace compilation entry point
 - `_PyJIT_Free` - executor cleanup
 - `_PyOptimizer_Optimize` - trace construction (in `Python/optimizer.c`)
+
+### Environment variables for debugging
+
+| Variable | Values | Effect |
+|----------|--------|--------|
+| `PYTHON_JIT` | `0` / `1` | Disable/enable JIT at runtime |
+| `PYTHON_UOPS_OPTIMIZE` | `0` | Disable uop optimization (test unoptimized traces) |
+| `PYTHON_OPT_DEBUG` | `0`-`5` | Optimizer debug tracing verbosity |
 
 ## Supported Platforms
 
