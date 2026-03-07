@@ -10,6 +10,7 @@
     "./skills/dev",
     "./skills/build",
     "./skills/style",
-    "./skills/docs"
+    "./skills/docs",
+    "./skills/jit"
   ]
 }

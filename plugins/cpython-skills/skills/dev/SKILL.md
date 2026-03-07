@@ -1,6 +1,6 @@
 ---
 name: dev
-description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs) as your workflow progresses.
+description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs, jit) as your workflow progresses.
 ---
 
 # CPython Development
@@ -14,6 +14,7 @@ This skill provides orientation. **Load additional skills when your task require
 - **Load `build` skill when**: compiling CPython, running tests, verifying changes work, debugging test failures, or checking if your fix is correct
 - **Load `style` skill when**: preparing commits, running pre-commit hooks, checking code style, or validating changes before pushing
 - **Load `docs` skill when**: editing files in `Doc/`, adding version markers, creating NEWS entries, or updating documentation
+- **Load `jit` skill when**: working on the JIT compiler, modifying `Tools/jit/` or `Python/jit.c`, debugging JIT-specific failures, or changing bytecodes that affect stencil generation
 
 ## Recommended Tools
 

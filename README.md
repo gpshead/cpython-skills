@@ -43,7 +43,7 @@ To use these skills in Claude Code within a CPython repository checkout:
 **Name**: `cpython`
 **Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
 
-This plugin provides four specialized skills with a meta-skill that coordinates loading:
+This plugin provides five specialized skills with a meta-skill that coordinates loading:
 
 #### 1. dev (Entry Point)
 **When to use**: Starting any CPython development task - fixing bugs, adding features, understanding code
@@ -86,6 +86,18 @@ Covers:
 - Version markers (always use `next`)
 - NEWS file entries for bug fixes and features
 
+#### 5. jit
+**When to use**: Working on CPython's experimental JIT compiler - modifying build scripts in Tools/jit/, editing Python/jit.c, changing bytecodes that affect stencils, debugging JIT failures
+
+Covers:
+- LLVM 21 toolchain setup
+- JIT configure flags (`--enable-experimental-jit` options)
+- Copy-and-patch compilation pipeline (template.c to jit_stencils.h)
+- Stencil regeneration workflow
+- Runtime JIT debugging (comparing `PYTHON_JIT=0` vs `PYTHON_JIT=1`)
+- Supported target platforms and object formats
+- Key concepts: stencils, holes, preserve_none, musttail, GOT
+
 ## Recommended Tools
 
 These tools improve the agentic development experience: `rg`, `gh`, `jq`
@@ -106,7 +118,9 @@ cpython-skills/
 │           │   └── SKILL.md
 │           ├── style/          # Code style and validation
 │           │   └── SKILL.md
-│           └── docs/           # Documentation
+│           ├── docs/           # Documentation
+│           │   └── SKILL.md
+│           └── jit/            # JIT compiler development
 │               └── SKILL.md
 ├── LICENSE
 └── README.md               # This file
