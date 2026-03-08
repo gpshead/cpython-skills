@@ -93,58 +93,6 @@ Covers:
 
 These tools improve the agentic development experience: `rg`, `gh`, `jq`
 
-## Marketplace Structure
-
-```
-cpython-skills/
-├── .claude-plugin/
-│   └── marketplace.json    # Marketplace manifest
-├── plugins/
-│   └── cpython-skills/     # CPython skills plugin
-│       ├── plugin.json     # Plugin manifest
-│       └── skills/         # Individual skills
-│           ├── dev/            # Entry point + codebase orientation
-│           │   └── SKILL.md
-│           ├── build/          # Building and testing
-│           │   └── SKILL.md
-│           ├── style/          # Code style and validation
-│           │   └── SKILL.md
-│           ├── docs/           # Documentation
-│           │   └── SKILL.md
-│           └── jit/            # JIT compiler development
-│               └── SKILL.md
-├── LICENSE
-└── README.md               # This file
-```
-
-## For Plugin Developers
-
-### Adding New Plugins to This Marketplace
-
-To add a new plugin to this marketplace:
-
-1. Create a new directory under `plugins/` with your plugin name
-2. Add your plugin files (skills, commands, agents, etc.)
-3. Create a `plugin.json` manifest in your plugin directory
-4. Update `.claude-plugin/marketplace.json` to include your plugin entry
-
-Example marketplace.json plugin entry:
-```json
-{
-  "name": "your-plugin-name",
-  "source": "./plugins/your-plugin-name",
-  "description": "Brief description of what your plugin does"
-}
-```
-
-### Skills Format
-
-This marketplace follows the [Claude Skills specification](https://simonwillison.net/2025/Oct/16/claude-skills/), making plugins usable by any AI agent that supports this format.
-
-Each skill is a self-contained directory with a `SKILL.md` file containing:
-- YAML frontmatter with `name` and `description`
-- Markdown content with detailed instructions
-
 ## Usage Examples
 
 When working with CPython, the AI agent will:
@@ -155,16 +103,6 @@ When working with CPython, the AI agent will:
 4. Load `docs` when updating documentation - the `dev` skill prompts this
 
 The `dev` skill acts as a coordinator, explicitly guiding the agent to load specialized skills as your workflow progresses.
-
-## Origin
-
-This marketplace was created from the original CPython skills plugin, which was converted from the `cpython/CLAUDE.local.md` file. The marketplace-based approach provides:
-
-- **Modularity**: Each skill focuses on a specific domain
-- **Discoverability**: AI agents can find relevant skills based on task descriptions
-- **Reusability**: Skills can be used independently or together
-- **Extensibility**: Easy to add new plugins to the marketplace
-- **Interoperability**: Works with any agent supporting Claude Skills format
 
 ## License
 
