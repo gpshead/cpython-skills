@@ -89,21 +89,6 @@ Covers:
 - Supported target platforms and object formats
 - Key concepts: stencils, holes, preserve_none, musttail, GOT
 
-## Recommended Tools
-
-These tools improve the agentic development experience: `rg`, `gh`, `jq`
-
-## Usage Examples
-
-When working with CPython, the AI agent will:
-
-1. Load `dev` when starting work in the repo - provides orientation and workflow guidance
-2. Load `build` when you need to compile or run tests - the `dev` skill prompts this
-3. Load `style` when preparing commits - the `dev` skill prompts this
-4. Load `docs` when updating documentation - the `dev` skill prompts this
-
-The `dev` skill acts as a coordinator, explicitly guiding the agent to load specialized skills as your workflow progresses.
-
 ## License
 
 CC0 1.0 Universal
