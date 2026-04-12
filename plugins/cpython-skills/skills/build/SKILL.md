@@ -88,8 +88,9 @@ $BUILT_PY -c "print('Hello from CPython!')"
 ## Running CPython Tests
 
 **Critical rules:**
-1. **NEVER use `pytest`** - CPython tests are `unittest` based
-2. **Use `--match` not `-k`** for filtering - takes a glob pattern (this is not pytest!)
+1. **NEVER use `python`, `python3`, or any Python from `$PATH`** - always use `$BUILT_PY` (the locally-built interpreter). The system Python won't have your changes.
+2. **NEVER use `pytest`** - CPython tests are `unittest` based
+3. **Use `--match` not `-k`** for filtering - takes a glob pattern (this is not pytest!)
 
 Prerequisite: `BUILT_PY=build/python` or `build/python.exe`
 

@@ -7,6 +7,15 @@ description: Use this skill when working in the CPython repository for any devel
 
 You are working in the CPython repository - the implementation of the Python language runtime and standard library itself.
 
+## CRITICAL: Never Use System Python
+
+**NEVER run `python`, `python3`, or any Python from `$PATH`.** Always use the locally-built interpreter from the build directory:
+
+- Linux: `build/python`
+- macOS: `build/python.exe`
+
+This applies to ALL Python execution — running tests, testing snippets, verifying behavior, importing modules, or any other use. The system Python is a different build and won't reflect your changes. If the build directory doesn't exist yet, **load the `build` skill and compile first** before running any Python code.
+
 ## Load Specialized Skills As Needed
 
 This skill provides orientation. **Load additional skills when your task requires them:**

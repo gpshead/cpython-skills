@@ -89,6 +89,31 @@ Covers:
 - Supported target platforms and object formats
 - Key concepts: stencils, holes, preserve_none, musttail, GOT
 
+## Advanced Usage
+
+### Preventing Use of System Python
+
+The skills instruct Claude to always use the locally-built interpreter (`build/python`) rather than `python` or `python3` from `$PATH`. This is critical when developing CPython — the system Python is a different build and won't reflect your changes.
+
+If you find Claude occasionally still reaches for the system Python (e.g., when running a quick snippet during investigation), you can add a [hook](https://docs.anthropic.com/en/docs/claude-code/hooks) as a hard guardrail. In your CPython repo's `.claude/settings.local.json`:
+
+```json
+{
+  "hooks": {
+    "Bash": {
+      "pre": [
+        {
+          "command": "bash -c 'if echo \"$CLAUDE_TOOL_PARAM_command\" | grep -qP \"(?<![/\\\\w])python3?\\s\" && ! echo \"$CLAUDE_TOOL_PARAM_command\" | grep -qP \"build/python\"; then echo \"ERROR: Use build/python instead of system python. Never use python or python3 from PATH in the CPython repo.\" >&2; exit 1; fi'",
+          "description": "Block bare python/python3 commands - must use build/python"
+        }
+      ]
+    }
+  }
+}
+```
+
+This intercepts Bash tool calls and rejects any that invoke bare `python`/`python3` without going through `build/python`. Note: you may need to tune the pattern if your workflow legitimately uses the system Python for build tooling (e.g., `python3 Tools/jit/build.py`).
+
 ## License
 
 CC0 1.0 Universal
