@@ -36,7 +36,7 @@ make -C $BUILD_DIR patchcheck
 make -C Doc check
 
 # 4. Run relevant tests
-$BUILT_PY -m test test_yourmodule -j $(nproc)
+$BUILT_PY -m test test_yourmodule -j $NCPU
 ```
 
 ## Documentation

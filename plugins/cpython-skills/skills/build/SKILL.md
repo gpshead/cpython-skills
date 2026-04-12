@@ -17,6 +17,15 @@ REPO_ROOT=<path-to-cpython-git-repo>
 BUILD_DIR=$REPO_ROOT/build
 ```
 
+#### Determine CPU Count
+
+Run `nproc` (Linux) or `sysctl -n hw.ncpu` (macOS) to get the number of CPU cores.
+**Do NOT use `$(nproc)` or `$(sysctl -n hw.ncpu)` command substitution** — instead, read the output and set the variable directly:
+
+```bash
+NCPU=<number from nproc or sysctl output>
+```
+
 #### ccache Setup (Recommended)
 
 ccache dramatically speeds up rebuilds by caching compilation results. Check if available:
@@ -54,7 +63,7 @@ Debug builds have significant overhead that distorts performance measurements. H
 
 ```bash
 # Build using all CPU cores (initial or incremental)
-make -C $BUILD_DIR -j $(nproc)
+make -C $BUILD_DIR -j $NCPU
 ```
 
 **Platform notes**:
@@ -83,7 +92,7 @@ $BUILT_PY -c "print('Hello from CPython!')"
 - **Missing dependencies**: Configure reports missing libraries
 - **Stale build**: `make clean` in BUILD_DIR and rebuild
 - **Clinic files out of sync**: `make -C $BUILD_DIR clinic`
-- **Clean build**: `rm -rf $BUILD_DIR && mkdir $BUILD_DIR && cd $BUILD_DIR && CC="ccache gcc" ../configure --with-pydebug && make -j $(nproc)` (omit `CC=...` if ccache unavailable)
+- **Clean build**: `rm -rf $BUILD_DIR && mkdir $BUILD_DIR && cd $BUILD_DIR && CC="ccache gcc" ../configure --with-pydebug && make -j $NCPU` (omit `CC=...` if ccache unavailable)
 
 ## Running CPython Tests
 
@@ -98,16 +107,16 @@ Prerequisite: `BUILT_PY=build/python` or `build/python.exe`
 
 ```bash
 # Single test module (recommended - proper discovery, parallel execution)
-$BUILT_PY -m test test_zipfile -j $(nproc)
+$BUILT_PY -m test test_zipfile -j $NCPU
 
 # Multiple modules
-$BUILT_PY -m test test_csv test_json -j $(nproc)
+$BUILT_PY -m test test_csv test_json -j $NCPU
 
 # Direct execution (quick but may miss test packages)
 $BUILT_PY Lib/test/test_csv.py
 
 # Specific test by glob pattern (use --match, NOT -k!)
-$BUILT_PY -m test test_zipfile --match "*large*" -j $(nproc)
+$BUILT_PY -m test test_zipfile --match "*large*" -j $NCPU
 $BUILT_PY -m test test_csv --match "TestDialect*"
 $BUILT_PY -m test test_json --match "TestEncode.test_encode_string"
 
@@ -123,7 +132,7 @@ make -C $BUILD_DIR test
 
 ```bash
 # Collect coverage (uses trace mechanism via libregrtest)
-$BUILT_PY -m test --coverage test_csv test_json --coveragedir .claude/coverage/ -j $(nproc)
+$BUILT_PY -m test --coverage test_csv test_json --coveragedir .claude/coverage/ -j $NCPU
 
 # Reports go to specified coveragedir
 ```

@@ -31,11 +31,11 @@ If not installed:
 ```bash
 # Full JIT (native code compilation)
 cd $BUILD_DIR && CC="ccache gcc" ../configure --enable-experimental-jit --with-pydebug
-make -j $(nproc)
+make -j $NCPU
 
 # Tier 2 interpreter only (no native compilation, useful for debugging uop logic)
 cd $BUILD_DIR && CC="ccache gcc" ../configure --enable-experimental-jit=interpreter --with-pydebug
-make -j $(nproc)
+make -j $NCPU
 ```
 
 ### Configure options for `--enable-experimental-jit`
@@ -136,7 +136,7 @@ python3 Tools/jit/build.py --force -d -o $BUILD_DIR -p $BUILD_DIR <target-triple
 make -C $BUILD_DIR clean-jit-stencils
 
 # Then rebuild
-make -C $BUILD_DIR -j $(nproc)
+make -C $BUILD_DIR -j $NCPU
 ```
 
 The stencil build uses a SHA-256 digest of all inputs. If the digest hasn't changed, `make` skips regeneration. Use `--force` or `clean-jit-stencils` to override.
@@ -147,26 +147,26 @@ The optimizer and executor infrastructure is tested in `Lib/test/test_optimizer.
 
 ```bash
 # Standard test run (JIT is active if configured with --enable-experimental-jit)
-$BUILT_PY -m test -j $(nproc)
+$BUILT_PY -m test -j $NCPU
 
 # Run specific tests
-$BUILT_PY -m test test_capi test_sys -j $(nproc)
+$BUILT_PY -m test test_capi test_sys -j $NCPU
 
 # Disable uop optimization (test stencils with unoptimized traces)
-PYTHON_UOPS_OPTIMIZE=0 $BUILT_PY -m test -j $(nproc)
+PYTHON_UOPS_OPTIMIZE=0 $BUILT_PY -m test -j $NCPU
 
 # Disable JIT at runtime (fall back to Tier 2 interpreter)
-PYTHON_JIT=0 $BUILT_PY -m test -j $(nproc)
+PYTHON_JIT=0 $BUILT_PY -m test -j $NCPU
 
 # Enable JIT at runtime (for yes-off builds)
-PYTHON_JIT=1 $BUILT_PY -m test -j $(nproc)
+PYTHON_JIT=1 $BUILT_PY -m test -j $NCPU
 ```
 
 ## Debugging JIT Issues
 
 ### Common problems
 
-- **Segfault in JIT code**: Usually a patching bug or stale stencils. Run `make clean-jit-stencils && make -j $(nproc)` and retest.
+- **Segfault in JIT code**: Usually a patching bug or stale stencils. Run `make clean-jit-stencils && make -j $NCPU` and retest.
 - **"Can't find clang-21!"**: LLVM 21 not installed or not on PATH. See Prerequisites.
 - **Stencil digest mismatch**: After editing bytecodes, run `make regen-jit` before rebuilding.
 - **Wrong results with JIT**: Compare `PYTHON_JIT=1` vs `PYTHON_JIT=0` to isolate. If only JIT fails, the bug is in stencil generation or patching.
