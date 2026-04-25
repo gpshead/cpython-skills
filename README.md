@@ -67,6 +67,7 @@ Covers:
 - Trailing whitespace and file ending rules
 - Type annotation policy (no annotations in Lib/!)
 - Pre-commit hooks and patchcheck
+- Comment quality - avoiding PR-indexed comments that won't age well
 
 #### 4. docs
 **When to use**: Editing documentation in Doc/, adding version markers, creating NEWS entries
@@ -88,6 +89,11 @@ Covers:
 - Runtime JIT debugging (comparing `PYTHON_JIT=0` vs `PYTHON_JIT=1`)
 - Supported target platforms and object formats
 - Key concepts: stencils, holes, preserve_none, musttail, GOT
+
+### Commands
+
+#### /comments
+Audits every comment added in your current diff against a "would this still be useful in two years?" test, then rewrites or removes the ones that are over-indexed on the current PR (history references, restating-the-code, unexplained jargon). The `style` skill points here as part of the pre-commit workflow, but it's also useful to run on an existing PR you're reviewing or picking up - check out the branch and invoke `/comments` to clean up comments before merge.
 
 ## Advanced Usage
 

@@ -1,6 +1,6 @@
 {
   "name": "cpython",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation",
   "author": {
     "name": "CPython Core Team"
@@ -12,5 +12,8 @@
     "./skills/style",
     "./skills/docs",
     "./skills/jit"
+  ],
+  "commands": [
+    "./commands/comments.md"
   ]
 }
