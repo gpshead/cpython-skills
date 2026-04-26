@@ -27,7 +27,8 @@ Before committing, run from repo root:
 
 ```bash
 # 1. Pre-commit hooks (checks whitespace, file endings, syntax)
-pre-commit run --all-files
+#    Prefer prek (faster drop-in) if installed; otherwise use pre-commit
+if command -v prek >/dev/null; then prek run --all-files; else pre-commit run --all-files; fi
 
 # 2. Patchcheck (MUST PASS - validates C/Python style, docs, whitespace)
 make -C $BUILD_DIR patchcheck

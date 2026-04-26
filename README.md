@@ -66,7 +66,7 @@ Covers:
 - PEP 7 (C code) and PEP 8 (Python code) compliance
 - Trailing whitespace and file ending rules
 - Type annotation policy (no annotations in Lib/!)
-- Pre-commit hooks and patchcheck
+- Pre-commit hooks (via `prek` if available, else `pre-commit`) and patchcheck
 - Comment quality - avoiding PR-indexed comments that won't age well
 
 #### 4. docs
