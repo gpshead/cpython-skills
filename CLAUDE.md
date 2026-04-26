@@ -1,37 +1,32 @@
-# Claude Agent Instructions
-
-This repository contains Claude Code skills for CPython development, packaged as a plugin marketplace.
+This repository packages Claude Code skills and slash commands for CPython development as a plugin marketplace. Those are the product; there is no code to build or run here.
 
 ## Repository Structure
 
-- `plugins/cpython-skills/skills/` - Individual skill definitions (SKILL.md files)
-- `.claude-plugin/marketplace.json` - Marketplace manifest
-- `README.md` - User documentation and installation instructions
+- `plugins/cpython-skills/skills/<name>/SKILL.md` — skill definitions (YAML frontmatter + markdown)
+- `plugins/cpython-skills/commands/<name>.md` — slash commands shipped with the plugin
+- `plugins/cpython-skills/plugin.json` — plugin manifest (lists skills and commands)
+- `.claude-plugin/marketplace.json` — marketplace manifest
+- `README.md` — user-facing install and usage docs
 
-## For Agents Updating Skills
+## Editing Skills and Commands
 
-When modifying skills in this repository:
+- **One domain per skill** (build, style, docs, jit, dev). Don't repeat content across skills; cross-reference instead.
+- **The `description` frontmatter is the trigger.** Be specific about *when* the skill applies, not just what it contains.
+- **Keep `SKILL.md` under ~500 lines.** No README or auxiliary files inside skill directories.
+- **When adding a skill or command**, register it in `plugin.json` and update the corresponding section of `README.md`.
 
-1. **Each skill is a directory** under `plugins/cpython-skills/skills/` containing a `SKILL.md` file
-2. **SKILL.md format**: YAML frontmatter (`name`, `description`) followed by markdown instructions
-3. **Keep skills focused**: Each skill should cover a specific domain (build, test, style, docs)
-4. **Descriptions are critical**: The `description` is the primary triggering mechanism - include specific contexts and triggers
-5. **No extraneous files**: Don't add README.md or other auxiliary files in skill directories
-6. **Avoid duplication**: Information should live in one skill only, not repeated across skills
-7. **Keep SKILL.md concise**: Under 500 lines; split to reference files if needed
-8. **Update top-level README.md** if adding new skills or changing skill purposes
+The `skill-creator` plugin is enabled for this repo (see `.claude/settings.json`). Use its skill when authoring or restructuring skills here — it covers design patterns, progressive disclosure, description tuning, and evals. Source: [anthropics/claude-plugins-official/skill-creator](https://github.com/anthropics/claude-plugins-official/blob/main/plugins/skill-creator/skills/skill-creator/SKILL.md).
 
-### Best Practices Reference
+## Versioning
 
-Load the [skill-creator](https://github.com/anthropics/skills/blob/main/skill-creator/SKILL.md) skill for comprehensive guidance on skill design patterns, progressive disclosure, and bundled resources.
+`plugins/cpython-skills/plugin.json` and `.claude-plugin/marketplace.json` versions are kept **in lockstep**. Bump both to the same value for any user-visible change.
 
-## Official Anthropic Documentation
+## Validation
 
-### Claude Skills
-- [Agent Skills Overview](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills/overview) - Full documentation
-- [Introducing Agent Skills](https://www.anthropic.com/news/skills) - Announcement and overview
-- [anthropics/skills](https://github.com/anthropics/skills) - Official skills repository and examples
+No test suite. Before committing, confirm both manifests parse: `jq . plugins/cpython-skills/plugin.json .claude-plugin/marketplace.json`
 
-### Claude Code Plugins & Marketplaces
-- [Claude Code Plugins](https://www.anthropic.com/news/claude-code-plugins) - Plugin system announcement
-- [Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview) - Main Claude Code docs
+## References
+
+- [Agent Skills Overview](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills/overview)
+- [Claude Code Plugins](https://www.anthropic.com/news/claude-code-plugins)
+- [Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview)
