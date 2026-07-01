@@ -6,7 +6,7 @@ A Claude Code marketplace providing specialized skills for working with the CPyt
 
 This marketplace hosts Claude Code plugins with AI-agent skills for CPython development. Includes one comprehensive plugin with multiple skills providing deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards.
 
-Skills are now invoked as `cpython:dev`, `cpython:build`, `cpython:style`, `cpython:docs`, and `cpython:jit`.
+Skills are now invoked as `cpython:dev`, `cpython:build`, `cpython:style`, `cpython:docs`, `cpython:jit`, and `cpython:backport`.
 
 ## Installation
 
@@ -34,7 +34,7 @@ To use these skills in Claude Code within a CPython repository checkout:
 **Name**: `cpython`
 **Description**: Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation
 
-This plugin provides five specialized skills with a meta-skill that coordinates loading:
+This plugin provides six specialized skills with a meta-skill that coordinates loading:
 
 #### 1. dev (Entry Point)
 **When to use**: Starting any CPython development task - fixing bugs, adding features, understanding code
@@ -89,6 +89,16 @@ Covers:
 - Runtime JIT debugging (comparing `PYTHON_JIT=0` vs `PYTHON_JIT=1`)
 - Supported target platforms and object formats
 - Key concepts: stencils, holes, preserve_none, musttail, GOT
+
+#### 6. backport
+**When to use**: Backporting a merged change to a maintenance branch (3.14, 3.13, ...) - including redoing a failed automated miss-islington backport. Also invocable directly: `/cpython:backport 3.13 <PR URL or number>`
+
+Covers:
+- The `cherry_picker` conventions the bots expect: `backport-<sha7>-<version>` branch naming, `[X.Y] title (GH-NNNN)` commit/PR titles, `(cherry picked from commit ...)` trailers
+- Intelligent conflict resolution - translating the fix into the older branch's idioms (pre-Argument-Clinic code, missing helper APIs, split test packages) instead of failing like the automated tool
+- Building and testing the result on the target branch before offering to push
+- Opening the backport PR with `gh`, including "Manual backport notes" describing any hand adaptations
+- Always asks before pushing or creating the PR (fork auth setups vary)
 
 ### Commands
 
