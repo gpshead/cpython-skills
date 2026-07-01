@@ -24,6 +24,7 @@ This skill provides orientation. **Load additional skills when your task require
 - **Load `style` skill when**: preparing commits, running pre-commit hooks, checking code style, or validating changes before pushing
 - **Load `docs` skill when**: editing files in `Doc/`, adding version markers, creating NEWS entries, or updating documentation
 - **Load `jit` skill when**: working on the JIT compiler, modifying `Tools/jit/` or `Python/jit.c`, debugging JIT-specific failures, or changing bytecodes that affect stencil generation
+- **Load `backport` skill when**: backporting a merged change to a maintenance branch (3.14, 3.13, ...), or redoing a failed automated miss-islington backport
 
 ## Recommended Tools
 
