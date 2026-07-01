@@ -13,17 +13,18 @@ The JIT uses **copy-and-patch compilation**: at build time, each micro-op (uop) 
 
 **Load the `build` skill first** if you haven't configured and built CPython yet.
 
-LLVM 21 is required to build the JIT (only `clang` and `llvm-readobj`; `llvm-objdump` is recommended). Check availability:
+Building the JIT requires the specific LLVM major version pinned in `Tools/jit/_llvm.py` (`_LLVM_VERSION`) — **check that file first**; the pin advances over time and older branches pin older versions. Only `clang` and `llvm-readobj` are needed; `llvm-objdump` is recommended. With `<V>` as the pinned version, check availability:
 
 ```bash
-clang-21 --version 2>/dev/null || clang --version 2>/dev/null
+grep _LLVM_VERSION Tools/jit/_llvm.py
+clang-<V> --version 2>/dev/null || clang --version 2>/dev/null
 ```
 
 If not installed:
-- Ubuntu/Debian: `wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && sudo ./llvm.sh 21`
-- Fedora 40+: `sudo dnf install 'clang(major) = 21' 'llvm(major) = 21'`
-- macOS (Homebrew): `brew install llvm@21`
-- Dev Containers / Codespaces: LLVM 21 is pre-installed
+- Ubuntu/Debian: `wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && sudo ./llvm.sh <V>`
+- Fedora 40+: `sudo dnf install 'clang(major) = <V>' 'llvm(major) = <V>'`
+- macOS (Homebrew): `brew install llvm@<V>`
+- Dev Containers / Codespaces: the required LLVM is pre-installed
 - Windows: Downloaded automatically by `PCbuild\build.bat`
 
 ## Building with JIT
@@ -64,7 +65,7 @@ Runtime toggle: set `PYTHON_JIT=0` or `PYTHON_JIT=1` to override the build defau
 | `_stencils.py` | Data structures: `Hole`, `Stencil`, `StencilGroup`, `HoleValue` enum |
 | `_optimizers.py` | Post-compilation assembly optimization (branch inversion, dead code removal) |
 | `_writer.py` | Generates C `emit_*` functions and `StencilGroup` table for `jit_stencils.h` |
-| `_llvm.py` | LLVM tool discovery and invocation (`_LLVM_VERSION = "21"`) |
+| `_llvm.py` | LLVM tool discovery and invocation (pins `_LLVM_VERSION`) |
 | `_schema.py` | TypedDict schemas for `llvm-readobj` JSON output |
 
 ### Runtime (`Python/`)
@@ -167,7 +168,7 @@ PYTHON_JIT=1 $BUILT_PY -m test -j $NCPU
 ### Common problems
 
 - **Segfault in JIT code**: Usually a patching bug or stale stencils. Run `make clean-jit-stencils && make -j $NCPU` and retest.
-- **"Can't find clang-21!"**: LLVM 21 not installed or not on PATH. See Prerequisites.
+- **"Can't find clang-NN!"**: The pinned LLVM version isn't installed or on PATH. See Prerequisites.
 - **Stencil digest mismatch**: After editing bytecodes, run `make regen-jit` before rebuilding.
 - **Wrong results with JIT**: Compare `PYTHON_JIT=1` vs `PYTHON_JIT=0` to isolate. If only JIT fails, the bug is in stencil generation or patching.
 
@@ -216,4 +217,4 @@ Build with `--with-pydebug` for assertions in `Python/jit.c`. Key functions to s
 - **`musttail`**: Guaranteed tail call elimination, essential for the continuation-passing style between stencils.
 - **GOT (Global Offset Table)**: Per-stencil table for resolving external symbols at runtime.
 - **Executor**: `_PyExecutorObject` - holds the uop trace and (if JIT-compiled) a `jit_code` function pointer.
-- **`PY_MAX_JIT_CODE_SIZE`**: 1 MB - 1 byte. Traces exceeding this fall back to the Tier 2 interpreter.
+- **`PY_MAX_JIT_CODE_SIZE`**: Maximum JIT-compiled trace size (see `Include/internal/pycore_jit.h` for the current value). Traces exceeding this fall back to the Tier 2 interpreter.

@@ -23,12 +23,13 @@ description: Use this skill when preparing commits, running pre-commit hooks, ch
 
 ## Pre-Commit Workflow
 
-Before committing, run from repo root:
+Before committing, run from repo root. `$BUILD_DIR`, `$BUILT_PY`, and `$NCPU` are placeholders from the `build` skill (typically `build`, `build/python`, and your core count) — substitute the concrete values; shell state doesn't persist between commands.
 
 ```bash
 # 1. Pre-commit hooks (checks whitespace, file endings, syntax)
-#    Prefer prek (faster drop-in) if installed; otherwise use pre-commit
-if command -v prek >/dev/null; then prek run --all-files; else pre-commit run --all-files; fi
+#    Prefer prek (faster drop-in) if installed; otherwise use pre-commit.
+#    Pass the files you changed; --all-files also works but is slower on this tree.
+if command -v prek >/dev/null; then prek run --files <changed files>; else pre-commit run --files <changed files>; fi
 
 # 2. Patchcheck (MUST PASS - validates C/Python style, docs, whitespace)
 make -C $BUILD_DIR patchcheck
@@ -40,7 +41,7 @@ make -C Doc check
 $BUILT_PY -m test test_yourmodule -j $NCPU
 ```
 
-Then **audit any comments you added** against the Comment Quality rules below (or run `/comments` for a guided pass).
+Then **audit any comments you added** — see Comment Quality below.
 
 ## Documentation
 
@@ -50,14 +51,4 @@ Then **audit any comments you added** against the Comment Quality rules below (o
 
 ## Comment Quality
 
-Comments outlive the PR that added them. Before committing, re-read each comment you added and ask: **would a reader in two years, with no knowledge of this PR, find this useful?**
-
-Remove or rewrite comments that:
-- Reference the change itself ("switched from X", "added for gh-1234", "previously this was…")
-- Restate what the code already says
-- Lean on unexplained jargon, issue numbers, or subdomain shorthand
-- State a constraint without the *why* a future editor could verify
-
-Keep comments that state an invariant, constraint, or non-obvious causality in standalone terms. `Misc/NEWS.d/` and `Doc/whatsnew/` entries are exempt — those are change logs by design.
-
-Run `/comments` to do a full audit pass over the diff.
+Comments outlive the PR that added them. Before committing, re-read each comment you added and ask: **would a reader in two years, with no knowledge of this PR, find this useful?** Run `/cpython:comments` for the full guided audit pass — it has the complete test and fix patterns.

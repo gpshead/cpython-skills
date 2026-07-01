@@ -17,10 +17,12 @@ REPO_ROOT=<path-to-cpython-git-repo>
 BUILD_DIR=$REPO_ROOT/build
 ```
 
+**`$BUILD_DIR`, `$BUILT_PY`, and `$NCPU` throughout this skill (and the `style` and `jit` skills) are placeholders, not persistent shell state.** Each Bash invocation starts a fresh shell, so substitute the concrete values into every command you run — e.g. `make -C build patchcheck`, not `make -C $BUILD_DIR patchcheck` in a shell where the variable was never set.
+
 #### Determine CPU Count
 
 Run `nproc` (Linux) or `sysctl -n hw.ncpu` (macOS) to get the number of CPU cores.
-**Do NOT use `$(nproc)` or `$(sysctl -n hw.ncpu)` command substitution** — instead, read the output and set the variable directly:
+**Avoid `$(nproc)` or `$(sysctl -n hw.ncpu)` command substitution inside other commands** — embedded substitutions make commands harder for the user to audit and can trigger extra permission prompts. Read the output once and use the literal number:
 
 ```bash
 NCPU=<number from nproc or sysctl output>
@@ -79,6 +81,14 @@ make -C $BUILD_DIR clinic
 ```
 
 **NEVER** edit files in `**/clinic/**` subdirectories - they're auto-generated.
+
+### Other Regeneration Targets
+
+Clinic is one of several generated-source families. When you edit a source-of-truth file, rerun its generator rather than hand-editing the output — CI's `make regen-all` consistency check fails on hand-merged generated files:
+
+- `make regen-cases` — after editing `Python/bytecodes.c` (interpreter/uop definitions)
+- `make regen-all` — regenerates everything; slower, but the safe catch-all
+- `make -C $BUILD_DIR regen-jit` — JIT stencils (see the `jit` skill)
 
 ### Verify Build
 
@@ -139,6 +149,4 @@ $BUILT_PY -m test --coverage test_csv test_json --coveragedir .claude/coverage/ 
 
 ### Debugging
 
-For interactive debugging (pdb/lldb/gdb) or testing REPL features: **Control a tmux session**.
-
-Add `breakpoint()` in test code, then run with `-v` for verbose output.
+Add `breakpoint()` in test code, then run the test with `-v` for verbose output.

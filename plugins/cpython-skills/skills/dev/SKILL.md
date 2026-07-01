@@ -14,7 +14,9 @@ You are working in the CPython repository - the implementation of the Python lan
 - Linux: `build/python`
 - macOS: `build/python.exe`
 
-This applies to ALL Python execution — running tests, testing snippets, verifying behavior, importing modules, or any other use. The system Python is a different build and won't reflect your changes. If the build directory doesn't exist yet, **load the `build` skill and compile first** before running any Python code.
+This applies to ALL Python execution of code you are changing or testing — running tests, testing snippets, verifying behavior, importing modules. The system Python is a different build and won't reflect your changes. If the build directory doesn't exist yet, **load the `build` skill and compile first** before running any Python code.
+
+One exception: build and regeneration tooling under `Tools/` (e.g. `Tools/jit/build.py`, regen targets) is designed to run under a pre-existing Python and may use `python3` — that tooling generates sources rather than executing your changes.
 
 ## Load Specialized Skills As Needed
 
@@ -42,7 +44,7 @@ Prefer these tools when available: `rg`, `gh`, `jq`
 
 **`Lib/test/`** - All unittests
 - Test naming: `test_{module_name}.py` or `test_{module_name}/`
-- Examples: `Lib/zipfile.py` → `Lib/test/test_zipfile**`, `Modules/_csv.c` → `Lib/test/test_csv.py`
+- Examples: `Lib/zipfile.py` → `Lib/test/test_zipfile/` (a test package), `Modules/_csv.c` → `Lib/test/test_csv.py`
 - Test packages require `load_tests()` in `test_package/__init__.py` to work with `python -m test`
 
 **`Doc/`** - Documentation in .rst format (source for python.org docs), builds to `Doc/build/`
@@ -57,11 +59,12 @@ Prefer these tools when available: `rg`, `gh`, `jq`
 
 ## Engineering Notebooks
 
-ALWAYS load and maintain notebooks when working on features or PRs:
+Load and maintain a notebook whenever working on a feature or PR. Notebooks are how project state survives context compaction and session restarts — the next session (or the next model) picks up where this one left off instead of rediscovering everything:
+
 - **For PRs**: `.claude/pr-{PR_NUMBER}.md`
 - **For branches**: `.claude/branch-{branch_name_without_slashes}.md` (when not on `main`)
 
-Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status.
+Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status. (`.claude/` is in CPython's `.gitignore`, so notebooks never pollute commits.)
 
 ## Scratch Space
 
