@@ -19,6 +19,6 @@ No test suite. Before committing, confirm both manifests parse: `jq . plugins/cp
 
 ## References
 
-- [Agent Skills Overview](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills/overview)
+- [Agent Skills Overview](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)
 - [Claude Code Plugins](https://www.anthropic.com/news/claude-code-plugins)
-- [Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview)
+- [Claude Code Overview](https://docs.claude.com/en/docs/claude-code/overview)

@@ -22,7 +22,7 @@ make -C Doc html
 
 ## Version Markers
 
-**IMPORTANT**: When adding `versionadded::`, `versionchanged::`, or similar markers in documentation, always use `next` as the version "number". The doc build and release process fills this in appropriately.
+When adding `versionadded::`, `versionchanged::`, or similar markers, always use `next` as the version "number" - the doc build and release process fills in the real version.
 
 ```rst
 .. versionadded:: next
@@ -35,7 +35,7 @@ make -C Doc html
 
 Bug fixes and new features require a `Misc/NEWS.d/next/` file entry.
 
-**IMPORTANT**: The filename MUST refer to the correct GitHub Issue number in the upstream `python/cpython` repository. **Do not pick a number on your own!** Ask the user what issue number to use.
+The filename must refer to the real GitHub issue number in the upstream `python/cpython` repository. **Never invent an issue number - ask the user which one to use.**
 
 Filename format: `Misc/NEWS.d/next/<CATEGORY>/<YYYY-MM-DD-HH-MM-SS>.gh-issue-<NUMBER>.<NONCE>.rst`
 
