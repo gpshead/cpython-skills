@@ -1,13 +1,5 @@
 This repository packages Claude Code skills and slash commands for CPython development as a plugin marketplace. Those are the product; there is no code to build or run here.
 
-## Repository Structure
-
-- `plugins/cpython-skills/skills/<name>/SKILL.md` — skill definitions (YAML frontmatter + markdown)
-- `plugins/cpython-skills/commands/<name>.md` — slash commands shipped with the plugin
-- `plugins/cpython-skills/plugin.json` — plugin manifest (lists skills and commands)
-- `.claude-plugin/marketplace.json` — marketplace manifest
-- `README.md` — user-facing install and usage docs
-
 ## Editing Skills and Commands
 
 - **One domain per skill** (build, style, docs, jit, dev). Don't repeat content across skills; cross-reference instead.
