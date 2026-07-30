@@ -111,24 +111,27 @@ Audits every comment added in your current diff against a "would this still be u
 
 The skills instruct Claude to always use the locally-built interpreter (`build/python`) rather than `python` or `python3` from `$PATH`. This is critical when developing CPython — the system Python is a different build and won't reflect your changes.
 
-If you find Claude occasionally still reaches for the system Python (e.g., when running a quick snippet during investigation), you can add a [hook](https://docs.anthropic.com/en/docs/claude-code/hooks) as a hard guardrail. In your CPython repo's `.claude/settings.local.json`:
+If you find Claude occasionally still reaches for the system Python (e.g., when running a quick snippet during investigation), you can add a [PreToolUse hook](https://docs.claude.com/en/docs/claude-code/hooks) as a hard guardrail. In your CPython repo's `.claude/settings.local.json`:
 
 ```json
 {
   "hooks": {
-    "Bash": {
-      "pre": [
-        {
-          "command": "bash -c 'if echo \"$CLAUDE_TOOL_PARAM_command\" | grep -qP \"(?<![/\\\\w])python3?\\s\" && ! echo \"$CLAUDE_TOOL_PARAM_command\" | grep -qP \"build/python\"; then echo \"ERROR: Use build/python instead of system python. Never use python or python3 from PATH in the CPython repo.\" >&2; exit 1; fi'",
-          "description": "Block bare python/python3 commands - must use build/python"
-        }
-      ]
-    }
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'cmd=$(jq -r \".tool_input.command // empty\"); if echo \"$cmd\" | grep -qP \"(?<![/\\\\w])python3?\\\\s\" && ! echo \"$cmd\" | grep -q \"build/python\" && ! echo \"$cmd\" | grep -q \"Tools/\"; then echo \"Use build/python instead of system python in the CPython repo.\" >&2; exit 2; fi'"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
-This intercepts Bash tool calls and rejects any that invoke bare `python`/`python3` without going through `build/python`. Note: you may need to tune the pattern if your workflow legitimately uses the system Python for build tooling (e.g., `python3 Tools/jit/build.py`).
+The hook receives the tool call as JSON on stdin; exiting with code 2 blocks the call and feeds the stderr message back to Claude. This rejects any Bash command that invokes bare `python`/`python3` without going through `build/python`, while allowing build tooling under `Tools/` (e.g., `python3 Tools/jit/build.py`), which is designed to run under a pre-existing Python. Tune the patterns to your workflow.
 
 ## License
 

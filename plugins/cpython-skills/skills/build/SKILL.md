@@ -7,7 +7,7 @@ description: Use this skill when you need to compile CPython, run tests, verify 
 
 ## Building CPython
 
-**ONLY build in a `build/` subdirectory** at repo root. Never build in the source tree.
+Build in a `build/` subdirectory at repo root, never in the source tree.
 
 ### Setup and Configuration
 
@@ -80,7 +80,7 @@ After editing `.c` files that change function signatures, docstrings, or argumen
 make -C $BUILD_DIR clinic
 ```
 
-**NEVER** edit files in `**/clinic/**` subdirectories - they're auto-generated.
+**Never edit files in `**/clinic/**` subdirectories** - they're auto-generated.
 
 ### Other Regeneration Targets
 
@@ -107,9 +107,9 @@ $BUILT_PY -c "print('Hello from CPython!')"
 ## Running CPython Tests
 
 **Critical rules:**
-1. **NEVER use `python`, `python3`, or any Python from `$PATH`** - always use `$BUILT_PY` (the locally-built interpreter). The system Python won't have your changes.
-2. **NEVER use `pytest`** - CPython tests are `unittest` based
-3. **Use `--match` not `-k`** for filtering - takes a glob pattern (this is not pytest!)
+1. **Run tests with `$BUILT_PY` (the locally-built interpreter), never `python`/`python3` from `$PATH`** - the system Python won't have your changes. (Exception: `Tools/` build and regen scripts, e.g. `Tools/jit/build.py`, are designed to run under a pre-existing `python3`.)
+2. CPython tests are `unittest` based - never use `pytest`
+3. Filter with `--match`, which takes a glob pattern - not `-k` (this is not pytest)
 
 Prerequisite: `BUILT_PY=build/python` or `build/python.exe`
 
@@ -130,7 +130,7 @@ $BUILT_PY -m test test_zipfile --match "*large*" -j $NCPU
 $BUILT_PY -m test test_csv --match "TestDialect*"
 $BUILT_PY -m test test_json --match "TestEncode.test_encode_string"
 
-# Full test suite (ASK FIRST - takes significant time!)
+# Full test suite (takes significant time - prefer targeted modules for iteration)
 make -C $BUILD_DIR test
 
 # Useful flags: -v (verbose), -f (fail fast), --timeout 120 (detect hangs), --list-tests, --help

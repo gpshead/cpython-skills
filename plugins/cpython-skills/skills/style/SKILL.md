@@ -13,13 +13,9 @@ description: Use this skill when preparing commits, running pre-commit hooks, ch
 
 ## Critical Rules
 
-**NEVER leave trailing whitespace on any line.** Pre-commit hooks will catch this.
-
-**ALWAYS preserve the final newline** at the end of files.
-
-**NEVER add type annotations to `Lib/` tree.** Stdlib doesn't use inline annotations (maintained in typeshed separately). Annotations may be OK in `Tools/` or test code if requested.
-
-**No autoformatting by default.** Only use `Doc/venv/bin/ruff format` if explicitly requested.
+- No trailing whitespace on any line, and preserve the final newline at the end of files - pre-commit enforces both.
+- **No type annotations in the `Lib/` tree** - stdlib annotations are maintained separately in typeshed. Annotations may be OK in `Tools/` or test code if requested.
+- No autoformatting by default - use `Doc/venv/bin/ruff format` only if explicitly requested.
 
 ## Pre-Commit Workflow
 
@@ -31,7 +27,7 @@ Before committing, run from repo root. `$BUILD_DIR`, `$BUILT_PY`, and `$NCPU` ar
 #    Pass the files you changed; --all-files also works but is slower on this tree.
 if command -v prek >/dev/null; then prek run --files <changed files>; else pre-commit run --files <changed files>; fi
 
-# 2. Patchcheck (MUST PASS - validates C/Python style, docs, whitespace)
+# 2. Patchcheck (must pass - validates C/Python style, docs, whitespace)
 make -C $BUILD_DIR patchcheck
 
 # 3. If you modified Doc/, verify reStructuredText

@@ -1,13 +1,5 @@
 This repository packages Claude Code skills and slash commands for CPython development as a plugin marketplace. Those are the product; there is no code to build or run here.
 
-## Repository Structure
-
-- `plugins/cpython-skills/skills/<name>/SKILL.md` — skill definitions (YAML frontmatter + markdown)
-- `plugins/cpython-skills/commands/<name>.md` — slash commands shipped with the plugin
-- `plugins/cpython-skills/plugin.json` — plugin manifest (lists skills and commands)
-- `.claude-plugin/marketplace.json` — marketplace manifest
-- `README.md` — user-facing install and usage docs
-
 ## Editing Skills and Commands
 
 - **One domain per skill** (build, style, docs, jit, dev). Don't repeat content across skills; cross-reference instead.
@@ -27,6 +19,6 @@ No test suite. Before committing, confirm both manifests parse: `jq . plugins/cp
 
 ## References
 
-- [Agent Skills Overview](https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills/overview)
+- [Agent Skills Overview](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)
 - [Claude Code Plugins](https://www.anthropic.com/news/claude-code-plugins)
-- [Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview)
+- [Claude Code Overview](https://docs.claude.com/en/docs/claude-code/overview)

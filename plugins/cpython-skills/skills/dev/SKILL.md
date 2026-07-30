@@ -7,14 +7,14 @@ description: Use this skill when working in the CPython repository for any devel
 
 You are working in the CPython repository - the implementation of the Python language runtime and standard library itself.
 
-## CRITICAL: Never Use System Python
+## Run Python via the Built Interpreter
 
-**NEVER run `python`, `python3`, or any Python from `$PATH`.** Always use the locally-built interpreter from the build directory:
+**Run all Python code with the locally-built interpreter — never `python` or `python3` from `$PATH`:**
 
 - Linux: `build/python`
 - macOS: `build/python.exe`
 
-This applies to ALL Python execution of code you are changing or testing — running tests, testing snippets, verifying behavior, importing modules. The system Python is a different build and won't reflect your changes. If the build directory doesn't exist yet, **load the `build` skill and compile first** before running any Python code.
+This applies to any execution of code you are changing or testing — running tests, testing snippets, verifying behavior, importing modules. The system Python is a different build and won't reflect your changes. If the build directory doesn't exist yet, load the `build` skill and compile first.
 
 One exception: build and regeneration tooling under `Tools/` (e.g. `Tools/jit/build.py`, regen targets) is designed to run under a pre-existing Python and may use `python3` — that tooling generates sources rather than executing your changes.
 
@@ -68,17 +68,9 @@ Keep notebooks updated with learnings and project state as you work and after co
 
 ## Scratch Space
 
-**NEVER create throwaway files in repo root.** Use `.claude/sandbox/` for exploration files, test scripts, and prototypes.
+Put exploration files, test scripts, and prototypes in `.claude/sandbox/`, never in the repo root or source tree.
 
 ## Optional Developer Resources
 
 - **Developer Guide**: If `REPO_ROOT/../devguide/` exists, see `developer-workflow/` and `documentation/` subdirectories
 - **PEPs**: May exist in `REPO_ROOT/../peps/` tree - reference relevant PEPs when working on changes
-
-## Typical Workflow
-
-1. **Understand the task** - explore code, read relevant files
-2. **Make changes** - edit source files
-3. **Build and test** - load `build` skill, compile, run tests
-4. **Validate style** - load `style` skill, run pre-commit and patchcheck
-5. **Update docs** - if needed, load `docs` skill for documentation changes
