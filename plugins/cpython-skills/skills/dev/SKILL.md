@@ -64,11 +64,11 @@ Load and maintain a notebook whenever working on a feature or PR. Notebooks are 
 - **For PRs**: `.claude/pr-{PR_NUMBER}.md`
 - **For branches**: `.claude/branch-{branch_name_without_slashes}.md` (when not on `main`)
 
-Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status. (`.claude/` is in CPython's `.gitignore`, so notebooks never pollute commits.)
+Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status. (CPython's `.gitignore` covers `.claude/pr-*`, `.claude/branch-*` and `.claude/sandbox/`, so notebooks named this way never pollute commits.)
 
 ## Scratch Space
 
-Put exploration files, test scripts, and prototypes in `.claude/sandbox/`, never in the repo root or source tree.
+Put exploration files, test scripts, and prototypes in `.claude/sandbox/`, never in the repo root or source tree. Anything else under `.claude/` is not ignored and shows up as untracked, so don't `git add -A`.
 
 ## Optional Developer Resources
 

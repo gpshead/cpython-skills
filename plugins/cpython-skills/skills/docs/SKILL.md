@@ -43,13 +43,20 @@ Filename format: `Misc/NEWS.d/next/<CATEGORY>/<YYYY-MM-DD-HH-MM-SS>.gh-issue-<NU
 - **`<YYYY-MM-DD-HH-MM-SS>`**: the current UTC time.
 - **`<NONCE>`**: 6 characters from the urlsafe-base64 alphabet (`A-Z a-z 0-9 _ -`), e.g. `_f-cFH`. Any unique value works; it only prevents filename collisions.
 
-**Entry body**: one or a few complete sentences describing the user-visible change, using Sphinx roles (`:func:`, `:class:`, `:meth:`, `:exc:`, `:mod:`) to link the affected APIs. Don't write "Fixes gh-NNNN" in the body — the filename already carries the issue link. Example:
+**Entry body**: follow the devguide's [How to write a NEWS entry](https://devguide.python.org/getting-started/pull-request-lifecycle/#how-to-write-a-news-entry). The changelog is read mainly by users scanning for what affects them, most of whom won't open the issue or diff, so the entry must stand alone:
+
+- One or two sentences, starting with an imperative verb that says what kind of change it is: *Fix*, *Add*, *Remove*, *Deprecate*, *Allow*, *Raise*.
+- Name what changed with Sphinx roles (`:func:`, `:class:`, `:meth:`, `:exc:`, `:mod:`) so readers can jump to the docs; say what a user will notice, and under what conditions. Then stop.
+- Leave out implementation details and the bug's root cause, what happened before when the fix already implies it, how the problem was found or who reported it, tests, benchmark figures (unless it's a performance change), filler ("improves robustness"), and references to the PR itself ("this PR", "this change").
+- Valid reST wrapped at 80 columns, no indentation or leading `-`, and no issue number in the body — the filename already carries it.
+- Attribution is optional: a final `Patch by Jane Doe.` sentence.
+
+Example (from the devguide):
 
 ```rst
-When a worker process terminates unexpectedly,
-:class:`concurrent.futures.ProcessPoolExecutor` now sets a separate
-:exc:`~concurrent.futures.process.BrokenProcessPool` exception on each
-pending future instead of sharing a single instance among them all.
+Fix :class:`logging.handlers.TimedRotatingFileHandler` permanently stopping
+rollover after a rollover failed or its backup file already existed, for
+example at a DST change.
 ```
 
 ## What's New

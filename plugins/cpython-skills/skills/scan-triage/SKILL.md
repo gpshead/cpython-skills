@@ -63,7 +63,7 @@ git worktree add --no-track -b <short-branch> ../cpython-<short-branch> origin/m
 
 (`origin` here and in the templates below means the remote tracking python/cpython; substitute yours.)
 
-Write the shared brief once (template below), fill the per-finding part of each agent's prompt (worktree, finding folder, backport labels), and launch the agents. Each agent works only in its worktree and produces exactly one commit plus `.claude/gh/{issue.md,pr.md,NOTES.md,open.sh}`.
+Write the shared brief once (template below), fill the per-finding part of each agent's prompt (worktree, finding folder, backport labels), and launch the agents. Each agent works only in its worktree and produces exactly one commit plus `.claude/gh/{issue.md,pr.md,NOTES.md,open.sh}`. Scanner patches' NEWS entries usually need rewriting, not just re-filing: the body follows the `docs` skill's NEWS guidance (the devguide's [How to write a NEWS entry](https://devguide.python.org/getting-started/pull-request-lifecycle/#how-to-write-a-news-entry)), which drops the root-cause and how-it-was-found detail scanners tend to include.
 
 **Backport labels**: main only - no backport branches. Add `needs backport to 3.X` labels only for branches that still take bugfixes; check the devguide versions page (https://devguide.python.org/versions/) rather than assuming - the label descriptions (`gh label list -R python/cpython --search "needs backport"`) say "bugs and security fixes" vs "only security fixes" but can lag a release. No backport labels for behavior changes.
 
@@ -142,7 +142,10 @@ A core developer will review your work, then push and run the script you write.
 3. Style: PEP 7/8; run `make patchcheck` from build/ or the pre-commit hooks the style skill describes.
 4. NEWS: unless this is docs-only, one entry in the correct section (not Security unless it is one), named
    `Misc/NEWS.d/next/<Section>/YYYY-MM-DD-HH-MM-SS.gh-issue-XXXXXX.<nonce>.rst` with the literal `XXXXXX`.
-   One or two plain sentences, Sphinx roles for APIs.
+   Write the body per the docs skill's NEWS guidance (the devguide's "How to write a NEWS entry",
+   https://devguide.python.org/getting-started/pull-request-lifecycle/#how-to-write-a-news-entry): one or two
+   sentences starting with an imperative verb (Fix, Add, ...), naming the API with Sphinx roles and what users
+   will notice; no root cause, no mention of the scanner or how the bug was found, no tests; wrapped at 80 columns.
 5. Exactly ONE commit via `git -c commit.gpgsign=false commit`: subject `gh-XXXXXX: <imperative subject>` under
    72 chars, optional 1-4 line body. No Co-Authored-By or other trailers. No @-mentions anywhere.
 6. Write into `<worktree>/.claude/gh/` (not ignored by git - never `git add -A`):
