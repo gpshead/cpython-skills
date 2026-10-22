@@ -6,6 +6,7 @@ This repository packages Claude Code skills and slash commands for CPython devel
 - **The `description` frontmatter is the trigger.** Be specific about *when* the skill applies, not just what it contains.
 - **Keep `SKILL.md` under ~500 lines.** No README or auxiliary files inside skill directories.
 - **When adding a skill or command**, register it in `plugin.json` and update the corresponding section of `README.md`.
+- **No `$0`, `$1`..`$9` or `$ARGUMENTS` in embedded shell snippets.** The loader substitutes them (and `${CLAUDE_...}` variables) with the invocation's arguments wherever they appear in a skill or command body, code blocks included; write `${BASH_SOURCE[0]}`, `"$@"` or named variables instead.
 
 The `skill-creator` plugin is enabled for this repo (see `.claude/settings.json`). Use its skill when authoring or restructuring skills here — it covers design patterns, progressive disclosure, description tuning, and evals. Source: [anthropics/claude-plugins-official/skill-creator](https://github.com/anthropics/claude-plugins-official/blob/main/plugins/skill-creator/skills/skill-creator/SKILL.md).
 

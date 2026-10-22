@@ -192,7 +192,7 @@ ISSUE_LABELS=__ISSUE_LABELS__      # comma-separated, may be ''
 PR_TITLE=__PR_TITLE__              # without the "gh-NNNNNN: " prefix
 PR_LABELS=__PR_LABELS__            # comma-separated, may be ''
 
-HERE=$(cd "$(dirname "$0")" && pwd)
+HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd "$HERE/.."
 P=XXXXXX
 
