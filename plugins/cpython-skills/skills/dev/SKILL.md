@@ -1,6 +1,6 @@
 ---
 name: dev
-description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs, backport) as your workflow progresses.
+description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs, backport, scan-triage) as your workflow progresses.
 ---
 
 # CPython Development
@@ -26,6 +26,7 @@ This skill provides orientation. **Load additional skills when your task require
 - **Load `style` skill when**: preparing commits, running pre-commit hooks, checking code style, or validating changes before pushing
 - **Load `docs` skill when**: editing files in `Doc/`, adding version markers, creating NEWS entries, or updating documentation
 - **Load `backport` skill when**: backporting a merged change to a maintenance branch (3.14, 3.13, ...), or redoing a failed automated miss-islington backport
+- **Load `scan-triage` skill when**: triaging a batch of automated bug-scanner findings (REPORT.md, repro, patches) into upstream issues and draft PRs
 
 ## Recommended Tools
 
@@ -63,11 +64,11 @@ Load and maintain a notebook whenever working on a feature or PR. Notebooks are 
 - **For PRs**: `.claude/pr-{PR_NUMBER}.md`
 - **For branches**: `.claude/branch-{branch_name_without_slashes}.md` (when not on `main`)
 
-Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status. (`.claude/` is in CPython's `.gitignore`, so notebooks never pollute commits.)
+Keep notebooks updated with learnings and project state as you work and after commits. Include: problem statement, key findings, file locations, design decisions, testing strategy, and status. (CPython's `.gitignore` covers `.claude/pr-*`, `.claude/branch-*` and `.claude/sandbox/`, so notebooks named this way never pollute commits.)
 
 ## Scratch Space
 
-Put exploration files, test scripts, and prototypes in `.claude/sandbox/`, never in the repo root or source tree.
+Put exploration files, test scripts, and prototypes in `.claude/sandbox/`, never in the repo root or source tree. Anything else under `.claude/` is not ignored and shows up as untracked, so don't `git add -A`.
 
 ## Optional Developer Resources
 
