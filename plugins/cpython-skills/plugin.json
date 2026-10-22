@@ -1,6 +1,6 @@
 {
   "name": "cpython",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Skills for working with the CPython repository - helping with building, testing, and contributing to Python's implementation",
   "author": {
     "name": "CPython Core Team"

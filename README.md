@@ -89,10 +89,10 @@ Covers:
 - Always asks before pushing or creating the PR (fork auth setups vary)
 
 #### 6. scan-triage
-**When to use**: Turning a batch of automated bug-scanner findings (REPORT.md, repro script, proposed patches) into upstream issues and draft PRs. Also invocable directly: `/cpython:scan-triage <findings folder>`
+**When to use**: Turning a batch of automated bug-scanner findings (REPORT.md, repro script, proposed patches) such as those from [Anthropic's OSS Scanner](https://github.com/anthropics/oss-scanner) into upstream issues and draft PRs. Also invocable directly: `/cpython:scan-triage <findings folder>`
 
 Covers:
-- Mirroring findings locally and treating them as untrusted data - only repro scripts run, under `build/python -I` from `.claude/sandbox/`
+- Mirroring findings locally and treating them as untrusted data - only repro scripts run, under `build/python -I` from `do-not-commit/sandbox/`
 - Parallel read-only triage: reproduce on current main, find the introducing change, critique the scanner's patch, search GitHub for duplicates and related work
 - Verdicts (new PR, needs redesign, already covered upstream, docs-only) and a ranked triage report published as a private artifact
 - One worktree and subagent per worthwhile finding: minimal fix, tests that fail without it, one commit with a `gh-XXXXXX` placeholder
