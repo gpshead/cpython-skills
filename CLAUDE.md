@@ -2,7 +2,7 @@ This repository packages Claude Code skills and slash commands for CPython devel
 
 ## Editing Skills and Commands
 
-- **One domain per skill** (build, style, docs, jit, dev). Don't repeat content across skills; cross-reference instead.
+- **One domain per skill** (build, style, docs, dev, backport). Don't repeat content across skills; cross-reference instead.
 - **The `description` frontmatter is the trigger.** Be specific about *when* the skill applies, not just what it contains.
 - **Keep `SKILL.md` under ~500 lines.** No README or auxiliary files inside skill directories.
 - **When adding a skill or command**, register it in `plugin.json` and update the corresponding section of `README.md`.

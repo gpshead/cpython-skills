@@ -6,7 +6,7 @@ A Claude Code marketplace providing specialized skills for working with the CPyt
 
 This marketplace hosts Claude Code plugins with AI-agent skills for CPython development. Includes one comprehensive plugin with multiple skills providing deep knowledge about CPython's codebase structure, build system, testing infrastructure, and coding standards.
 
-Skills are now invoked as `cpython:dev`, `cpython:build`, `cpython:style`, `cpython:docs`, `cpython:jit`, and `cpython:backport`.
+Skills are now invoked as `cpython:dev`, `cpython:build`, `cpython:style`, `cpython:docs`, and `cpython:backport`.
 
 ## Installation
 
@@ -78,19 +78,7 @@ Covers:
 - Version markers (always use `next`)
 - NEWS file entries for bug fixes and features
 
-#### 5. jit
-**When to use**: Working on CPython's experimental JIT compiler - modifying build scripts in Tools/jit/, editing Python/jit.c, changing bytecodes that affect stencils, debugging JIT failures
-
-Covers:
-- LLVM 21 toolchain setup
-- JIT configure flags (`--enable-experimental-jit` options)
-- Copy-and-patch compilation pipeline (template.c to jit_stencils.h)
-- Stencil regeneration workflow
-- Runtime JIT debugging (comparing `PYTHON_JIT=0` vs `PYTHON_JIT=1`)
-- Supported target platforms and object formats
-- Key concepts: stencils, holes, preserve_none, musttail, GOT
-
-#### 6. backport
+#### 5. backport
 **When to use**: Backporting a merged change to a maintenance branch (3.14, 3.13, ...) - including redoing a failed automated miss-islington backport. Also invocable directly: `/cpython:backport 3.13 <PR URL or number>`
 
 Covers:
@@ -131,7 +119,7 @@ If you find Claude occasionally still reaches for the system Python (e.g., when 
 }
 ```
 
-The hook receives the tool call as JSON on stdin; exiting with code 2 blocks the call and feeds the stderr message back to Claude. This rejects any Bash command that invokes bare `python`/`python3` without going through `build/python`, while allowing build tooling under `Tools/` (e.g., `python3 Tools/jit/build.py`), which is designed to run under a pre-existing Python. Tune the patterns to your workflow.
+The hook receives the tool call as JSON on stdin; exiting with code 2 blocks the call and feeds the stderr message back to Claude. This rejects any Bash command that invokes bare `python`/`python3` without going through `build/python`, while allowing build tooling under `Tools/` (e.g., `python3 Tools/clinic/clinic.py`), which is designed to run under a pre-existing Python. Tune the patterns to your workflow.
 
 ## License
 

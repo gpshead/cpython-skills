@@ -1,6 +1,6 @@
 ---
 name: dev
-description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs, jit) as your workflow progresses.
+description: Use this skill when working in the CPython repository for any development task - fixing bugs, adding features, understanding code, or making contributions. Provides codebase orientation and coordinates loading of specialized skills (build, style, docs, backport) as your workflow progresses.
 ---
 
 # CPython Development
@@ -16,7 +16,7 @@ You are working in the CPython repository - the implementation of the Python lan
 
 This applies to any execution of code you are changing or testing — running tests, testing snippets, verifying behavior, importing modules. The system Python is a different build and won't reflect your changes. If the build directory doesn't exist yet, load the `build` skill and compile first.
 
-One exception: build and regeneration tooling under `Tools/` (e.g. `Tools/jit/build.py`, regen targets) is designed to run under a pre-existing Python and may use `python3` — that tooling generates sources rather than executing your changes.
+One exception: build and regeneration tooling under `Tools/` (e.g. `Tools/clinic/clinic.py`, regen targets) is designed to run under a pre-existing Python and may use `python3` — that tooling generates sources rather than executing your changes.
 
 ## Load Specialized Skills As Needed
 
@@ -25,7 +25,6 @@ This skill provides orientation. **Load additional skills when your task require
 - **Load `build` skill when**: compiling CPython, running tests, verifying changes work, debugging test failures, or checking if your fix is correct
 - **Load `style` skill when**: preparing commits, running pre-commit hooks, checking code style, or validating changes before pushing
 - **Load `docs` skill when**: editing files in `Doc/`, adding version markers, creating NEWS entries, or updating documentation
-- **Load `jit` skill when**: working on the JIT compiler, modifying `Tools/jit/` or `Python/jit.c`, debugging JIT-specific failures, or changing bytecodes that affect stencil generation
 - **Load `backport` skill when**: backporting a merged change to a maintenance branch (3.14, 3.13, ...), or redoing a failed automated miss-islington backport
 
 ## Recommended Tools

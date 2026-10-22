@@ -17,7 +17,7 @@ REPO_ROOT=<path-to-cpython-git-repo>
 BUILD_DIR=$REPO_ROOT/build
 ```
 
-**`$BUILD_DIR`, `$BUILT_PY`, and `$NCPU` throughout this skill (and the `style` and `jit` skills) are placeholders, not persistent shell state.** Each Bash invocation starts a fresh shell, so substitute the concrete values into every command you run — e.g. `make -C build patchcheck`, not `make -C $BUILD_DIR patchcheck` in a shell where the variable was never set.
+**`$BUILD_DIR`, `$BUILT_PY`, and `$NCPU` throughout this skill (and the `style` skill) are placeholders, not persistent shell state.** Each Bash invocation starts a fresh shell, so substitute the concrete values into every command you run — e.g. `make -C build patchcheck`, not `make -C $BUILD_DIR patchcheck` in a shell where the variable was never set.
 
 #### Determine CPU Count
 
@@ -88,7 +88,6 @@ Clinic is one of several generated-source families. When you edit a source-of-tr
 
 - `make regen-cases` — after editing `Python/bytecodes.c` (interpreter/uop definitions)
 - `make regen-all` — regenerates everything; slower, but the safe catch-all
-- `make -C $BUILD_DIR regen-jit` — JIT stencils (see the `jit` skill)
 
 ### Verify Build
 
@@ -107,7 +106,7 @@ $BUILT_PY -c "print('Hello from CPython!')"
 ## Running CPython Tests
 
 **Critical rules:**
-1. **Run tests with `$BUILT_PY` (the locally-built interpreter), never `python`/`python3` from `$PATH`** - the system Python won't have your changes. (Exception: `Tools/` build and regen scripts, e.g. `Tools/jit/build.py`, are designed to run under a pre-existing `python3`.)
+1. **Run tests with `$BUILT_PY` (the locally-built interpreter), never `python`/`python3` from `$PATH`** - the system Python won't have your changes. (Exception: `Tools/` build and regen scripts, e.g. `Tools/clinic/clinic.py`, are designed to run under a pre-existing `python3`.)
 2. CPython tests are `unittest` based - never use `pytest`
 3. Filter with `--match`, which takes a glob pattern - not `-k` (this is not pytest)
 
